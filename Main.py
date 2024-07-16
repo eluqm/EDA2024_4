@@ -85,13 +85,13 @@ def reproducir_mis_canciones():
         
         opcion = input("Elige una opción: ")
         reproductor = Reproductor()
-         
+    
         if opcion == '1':
             n = int(input("Se reproducen las canciones"))
-            reproductor.listar_mis_canciones(n)
+            reproductor.reproducir_canciones(n)
         elif opcion == '2':
             n = int(input("Se cambia el orden de dos canciones "))
-            reproductor.agregar_cancion(n)
+            reproductor.cambiar_orden_dos_canciones(n)
         elif opcion == '3':
             print("Saliendo del menú Reproducir mis canciones  ...")
             break
