@@ -1,5 +1,4 @@
 from reproductor import Reproductor
-
                 ########## <<<<<MENÚ VER MUSICA >>>>>########## 
 def ver_musica():
     while True:
@@ -40,9 +39,38 @@ def ver_musica():
 
         ########## <<<<<MENÚ VER MI LISTA DE CANCIONES >>>>> ########## 
 def ver_mi_lista():
-    print("Mostrando tu lista de canciones...")
-
-
+    while True:
+        print("\nMenú Ver mi Lista de Canciones")
+        print("1. Listar mis canciones")
+        print("2. Agregar una Canción a mi lista")
+        print("3. Eliminar una Canción de mi lista")
+        print("4. Ordenar mi lista")
+        print("5. Buscar canción")
+        print("6. Salir")
+        
+        opcion = input("Elige una opción: ")
+        reproductor = Reproductor()
+         
+        if opcion == '1':
+            n = int(input("Se listan sus canciones"))
+            reproductor.listar_mis_canciones(n)
+        elif opcion == '2':
+            n = int(input("Se agrega una cancion a la lista "))
+            reproductor.agregar_cancion(n)
+        elif opcion == '3':
+            n = int(input("Se elimina una cancion de la lista "))
+            reproductor.eliminar_cancion(n)
+        elif opcion == '4':
+            n = int(input("Ordenar mi lista: "))
+            reproductor.ordenar_lista(n)
+        elif opcion == '5':
+            nombre = input("Buscar cancion: ")
+            reproductor.buscar_cancion(nombre)
+        elif opcion == '6':
+            print("Saliendo del menú Ver mi lIsta de Canciones  ...")
+            break
+        else:
+            print("Opción no válida, por favor elige de nuevo.")
 
         ########## <<<<<REPRODUCIR MIS CANCIONES >>>>> ########## 
 def reproducir_mis_canciones():

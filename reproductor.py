@@ -1,7 +1,6 @@
 import random
 
 class Reproductor:
-
     def listar_n_aleatorio(self, n):
         print(f"Listando {n} primeras canciones de forma aleatoria:")
         # Implementar lógica aquí
