@@ -72,12 +72,31 @@ def ver_mi_lista():
         else:
             print("Opción no válida, por favor elige de nuevo.")
 
+
+
+
         ########## <<<<<REPRODUCIR MIS CANCIONES >>>>> ########## 
 def reproducir_mis_canciones():
-    print("Reproduciendo tus canciones...")
-
-
-
+    while True:
+        print("\nMenú Ver mi Lista de Canciones")
+        print("1. Reproducir mis Canciones")
+        print("2. Cambiar orden de dos canciones")
+        print("3. Salir")
+        
+        opcion = input("Elige una opción: ")
+        reproductor = Reproductor()
+         
+        if opcion == '1':
+            n = int(input("Se reproducen las canciones"))
+            reproductor.listar_mis_canciones(n)
+        elif opcion == '2':
+            n = int(input("Se cambia el orden de dos canciones "))
+            reproductor.agregar_cancion(n)
+        elif opcion == '3':
+            print("Saliendo del menú Reproducir mis canciones  ...")
+            break
+        else:
+            print("Opción no válida, por favor elige de nuevo.")
 
 
 #MENÚ PRINCIPAL DE LA APLICACIÓN
