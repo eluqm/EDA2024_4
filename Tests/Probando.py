@@ -1,5 +1,5 @@
 from leer_csv import *
-from HashMap.HashMap import *
+from EstructurasDeDatos import HashMap
 archivo_csv = "./archive/spotify_data.csv"
 
 def main():
