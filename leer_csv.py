@@ -1,13 +1,26 @@
+from cancion import Cancion
 import csv
-from cancion import *
-def leer_csv(archivo_csv):
+
+def leer_csv(archivo_csv, n):
     canciones = []
-    with open(archivo_csv, newline='') as csvfile:
-        reader = csv.reader(csvfile)
+    with open(archivo_csv, newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        contador = 0  
+
         for row in reader:
-            cancion = Cancion()
-            cancion.set_artist_id(row[0].strip())
-            cancion.set_artist_name(row[1].strip())
-            cancion.set_track_name(row[2].strip())
-            canciones.append(cancion)
+            if contador < n:
+                # Crear una instancia de Cancion con los datos del CSV
+                cancion = Cancion(
+                    artist_name=row['artist_name'].strip(),
+                    track_name=row['track_name'].strip(),
+                    track_year=row['year'].strip(),
+                    track_id=row['track_id'].strip(),
+                    track_popularity=int(row['popularity']),
+                    track_duration_ms=int(row['duration_ms'])
+                )
+                canciones.append(cancion)
+                contador += 1 
+            else:
+                break 
+
     return canciones

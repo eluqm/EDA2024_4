@@ -75,7 +75,7 @@ def ver_mi_lista():
 
 
 
-        ########## <<<<<REPRODUCIR MIS CANCIONES >>>>> ########## 
+        ########## <<<<< REPRODUCIR MIS CANCIONES >>>>> ########## 
 def reproducir_mis_canciones():
     while True:
         print("\nMenú Ver mi Lista de Canciones")
