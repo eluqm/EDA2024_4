@@ -10,3 +10,16 @@ class BTree:
         self.root = BTreeNode(t, True)  # Inicializa el árbol con una raíz vacía
         self.t = t  # Grado mínimo
 
+    def search(self, k, node=None):
+        if node is None:
+            node = self.root
+        i = 0
+        while i < len(node.keys) and k > node.keys[i]:
+            i += 1
+        if i < len(node.keys) and k == node.keys[i]:
+            return (node, i)
+        if node.leaf:
+            return None
+        else:
+            return self.search(k, node.children[i])
+
