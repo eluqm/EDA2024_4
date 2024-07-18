@@ -1,4 +1,4 @@
-from LinkedList.LinkedList import *
+from EstructurasDeDatos.LinkedList.LinkedList import *
 
 class Entry:
     def __init__(self, key, value):
@@ -68,3 +68,10 @@ class HashMap:
 
     def is_empty(self):
         return self.size == 0
+    
+    def containsKey(self, key):
+        bucket_index = self.get_bucket_index(key)
+        for entry in self.buckets[bucket_index]:
+            if entry.key == key:
+                return True
+        return False
