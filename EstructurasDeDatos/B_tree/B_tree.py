@@ -22,4 +22,14 @@ class BTree:
             return None
         else:
             return self.search(k, node.children[i])
-
+    
+    def insert(self, k):
+        root = self.root
+        if len(root.keys) == 2 * self.t - 1:
+            temp = BTreeNode(self.t)
+            self.root = temp
+            temp.children.insert(0, root)
+            self.split_child(temp, 0)
+            self.insert_non_full(temp, k)
+        else:
+            self.insert_non_full(root, k)
