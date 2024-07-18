@@ -22,7 +22,7 @@ class BTree:
             return None
         else:
             return self.search(k, node.children[i])
-    
+
     def insert(self, k):
         root = self.root
         if len(root.keys) == 2 * self.t - 1:
@@ -63,3 +63,10 @@ class BTree:
                 if k > node.keys[i]:
                     i += 1
             self.insert_non_full(node.children[i], k)
+    def print_tree(self, node=None, level=0):
+        if node is None:
+            node = self.root
+        print("Level", level, " ", len(node.keys), ":", node.keys)
+        level += 1
+        for child in node.children:
+            self.print_tree(child, level)
