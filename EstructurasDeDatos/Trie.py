@@ -1,6 +1,8 @@
+from .HashMap import HashMap  
+
 class TrieNode:
     def __init__(self):
-        self.children = {}
+        self.children = HashMap()  
         self.isWord = False
 
 class Trie:
@@ -10,23 +12,23 @@ class Trie:
     def insert(self, word):
         current = self.root
         for char in word:
-            if char not in current.children:
-                current.children[char] = TrieNode()
-            current = current.children[char]
+            if not current.children.containsKey(char):
+                current.children.put(char, TrieNode())
+            current = current.children.get(char)
         current.isWord = True
     
     def search(self, word):
         current = self.root
         for char in word:
-            if char not in current.children:
+            if not current.children.containsKey(char):
                 return False
-            current = current.children[char]
+            current = current.children.get(char)
         return current.isWord
     
     def startsWith(self, prefix):
         current = self.root
         for char in prefix:
-            if char not in current.children:
+            if not current.children.containsKey(char):
                 return False
-            current = current.children[char]
+            current = current.children.get(char)
         return True
