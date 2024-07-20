@@ -1,5 +1,5 @@
 import random
-from leer_csv import leer_csv
+from leer_csv import *
 
 class Reproductor:
     def listar_n_aleatorio(self, n):

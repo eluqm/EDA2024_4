@@ -1,5 +1,5 @@
 from reproductor import Reproductor
-                ########## <<<<<MENÚ VER MUSICA >>>>>########## 
+                ########## <<<<<  MENÚ VER MUSICA >>>>>########## 
 def ver_musica():
     while True:
         print("\nMenú Ver Música")
@@ -37,7 +37,7 @@ def ver_musica():
 
 
 
-        ########## <<<<<MENÚ VER MI LISTA DE CANCIONES >>>>> ########## 
+        ########## <<<<<  MENÚ VER MI LISTA DE CANCIONES >>>>> ########## 
 def ver_mi_lista():
     while True:
         print("\nMenú Ver mi Lista de Canciones")
