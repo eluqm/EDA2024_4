@@ -1,4 +1,4 @@
-from EstructurasDeDatos.LinkedList.LinkedList import *
+from EstructurasDeDatos.LinkedList import *
 
 class Entry:
     def __init__(self, key, value):

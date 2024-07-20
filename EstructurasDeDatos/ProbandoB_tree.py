@@ -4,10 +4,10 @@ import os
 # Agrega el directorio principal al sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-from EstructurasDeDatos.B_tree.B_tree import BTree
+from EstructurasDeDatos.B_tree import BTree
 from leer_csv import leer_csv
-from EstructurasDeDatos.LinkedList.LinkedList import LinkedList
-from EstructurasDeDatos.HashMap.HashMap import HashMap
+from EstructurasDeDatos.LinkedList import LinkedList
+from EstructurasDeDatos.HashMap import HashMap
 
 def extraer_años(canciones):
     """Extrae los años de una lista de canciones."""

@@ -1,2 +1,2 @@
-from ..EstructurasDeDatos.Trie import Trie;
+from ..EstructurasDeDatos import Trie;
 
