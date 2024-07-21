@@ -9,8 +9,10 @@ def main():
     for cancion in canciones:
         trieArbol.insert(cancion.get_track_name())
 
-    resultado_busqueda = trieArbol.search('Do Not Let Me Go')
-    print(f'Resultado de búsqueda para: {resultado_busqueda}')
+    resultado_busqueda = trieArbol.searchAll('W')
+    print('Resultado de búsqueda para "W":')
+    for palabra in resultado_busqueda:
+        print(palabra)
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,5 @@
 from .HashMap import HashMap  
+from .LinkedList import LinkedList
 
 class TrieNode:
     def __init__(self):
@@ -44,3 +45,21 @@ class Trie:
             current = current.children.get(char)
         # Si se recorren todos los caracteres del prefijo, se considera que el prefijo existe en el Trie.
         return True
+    
+    def searchAll(self, prefix):
+        current = self.root
+        for char in prefix:
+            if not current.children.containsKey(char):
+                return LinkedList() 
+            current = current.children.get(char)
+        
+        words_list = LinkedList()
+        self.searchDepth(current, prefix, words_list)
+        return words_list
+
+    def searchDepth(self, node, prefix, words_list):
+        if node.isWord:
+            words_list.add(prefix)
+        
+        for char in node.children.entry_set():  # Usar entry_set() para obtener las claves del HashMap
+            self.searchDepth(node.children.get(char.key), prefix + char.key, words_list)
