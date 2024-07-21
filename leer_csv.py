@@ -12,7 +12,6 @@ def leer_csv(archivo_csv, n):
             if contador < n:
                 # Crear una instancia de Cancion con los datos del CSV
                 cancion = Cancion(
-                    id=row['id'].strip(),
                     artist_name=row['artist_name'].strip(),
                     track_name=row['track_name'].strip(),
                     track_year=row['year'].strip(),
