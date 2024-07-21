@@ -129,3 +129,21 @@ class AVLTree:
         result = LinkedList()
         self._in_order_descending(self.root, result)
         return result
+    
+    #Función para retornar la lista de un año en especifico
+    def _find(self, root, year):
+        if not root:
+            return None
+        if root.key == year:
+            return root
+        elif year < root.key:
+            return self._find(root.left, year)
+        else:
+            return self._find(root.right, year)
+        
+    def specifiedYear(self, year):
+        node = self._find(self.root, year)
+        if node:
+            return node.list_songs
+        else:
+            return LinkedList()
