@@ -102,3 +102,30 @@ class AVLTree:
         result = []
         self._in_order(self.root, result)
         return result
+    
+    # Funciones para devolver una lista en fprma descendete o ascendente
+    def _in_order_ascending(self, root, result):
+        if not root:
+            return
+        self._in_order_ascending(root.left, result)
+        for song in root.list_songs:
+            result.add(song)
+        self._in_order_ascending(root.right, result)
+
+    def ascending(self):
+        result = LinkedList()
+        self._in_order_ascending(self.root, result)
+        return result
+
+    def _in_order_descending(self, root, result):
+        if not root:
+            return
+        self._in_order_descending(root.right, result)
+        for song in root.list_songs:
+            result.add(song)
+        self._in_order_descending(root.left, result)
+
+    def descending(self):
+        result = LinkedList()
+        self._in_order_descending(self.root, result)
+        return result

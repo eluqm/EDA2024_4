@@ -18,11 +18,17 @@ def main():
     for cancion in canciones:
         avlArbol.insert(cancion.get_track_year(), cancion)
     
-    # Imprimir cada año y las canciones correspondientes
-    for year, song_list in avlArbol.in_order():
-        print(f'Año: {year}')
-        for song in song_list:
-            print(f' - {song}')
+    # Obtener las canciones en orden ascendente
+    print("Canciones ordenadas (ascendente):")
+    for song in avlArbol.ascending():
+        print(f' - {song}')
+    
+    # Obtener las canciones en orden descendente
+    print("\nCanciones ordenadas (descendente):")
+    for song in avlArbol.descending():
+        print(f' - {song}')
+
+        
 
 if __name__ == "__main__":
     main()
