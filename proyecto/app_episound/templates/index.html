@@ -5,8 +5,21 @@
   <title>Document</title>
   <link rel="stylesheet" href="{% static 'src/tailwind.css' %}">
 </head>
-<body class="bg-primary min-h-screen w-full">
-  {% block content %}
-  {% endblock content %}
+<body class="bg-primary w-full">
+  <main class="flex m-20 max-w-full border-2 border-white">
+    <div class="h-full w-3/10 bg-card p-4">
+      <nav class="flex flex-col space-y-2 justify-center items-center">
+        <a href="{% url 'index'%}" class="hover:underline px-28">Inicio</a>
+        <a href="{% url 'buscar'%}" class=" hover:underline">Buscar</a>
+        <a href="{% url 'miMusica'%}" class=" hover:underline">Tu Música</a>
+        <a href="{% url 'reproducir'%}" class="hover:underline">Reproducir</a>
+      </nav>
+    </div>
+    <div class="flex-1 ml-4 w-full p-4 border-2 bg-card">
+      {% block content %}
+      <!-- Contenido de cada Página -->
+      {% endblock content %}
+    </div>
+  </main>
 </body>
 </html>
