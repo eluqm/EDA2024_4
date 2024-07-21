@@ -600,3 +600,8 @@ html, body {
   background: #ad5389;
   background: linear-gradient(to top, #3c1053, #ad5389);
 }
+
+.bg-card{
+  color: white;
+  background: black;
+}
