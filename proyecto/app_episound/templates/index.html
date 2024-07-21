@@ -12,18 +12,17 @@
       <div class="flex flex-col h-full w-3/10 bg-card p-4 rounded-md">
         <nav class="flex flex-col space-y-2 justify-center px-28 items-center font-bold text-lg">
           <a href="{% url 'index' %}" class="hover:underline flex items-center">
-            <img src="{% static 'app_episound/media/tocar.png' %}" alt="Descripción de la Imagen" class="w-3 h-3">
+            <img src="{% static 'app_episound/media/hogar.png' %}" style="width: 1rem; height: 1rem; margin-right:10px">
             Inicio
-        </a>
-          <a href="{% url 'buscar'%}" class="hover:underline">
-            
+          </a>
+          <a href="{% url 'buscar'%}" class="hover:underline flex items-center">
+            <img src="{% static 'app_episound/media/busqueda.png' %}" style="width: 1rem; height: 1rem; margin-right:10px">
             Buscar</a>
-          <a href="{% url 'miMusica'%}" class="hover:underline">
-            
-            
+          <a href="{% url 'miMusica'%}" class="hover:underline flex items-center">
+            <img src="{% static 'app_episound/media/libros.png' %}" style="width: 1rem; height: 1rem; margin-right:10px">
             Tu Música</a>
-          <a href="{% url 'reproducir'%}" class="hover:underline">
-            
+          <a href="{% url 'reproducir'%}" class="hover:underline flex items-center">
+            <img src="{% static 'app_episound/media/tocar.png' %}" style="width: 1rem; height: 1rem; margin-right:10px">
             Reproducir</a>
         </nav>
         <div class="mt-auto w-full p-6 text-center">
