@@ -1,19 +1,28 @@
 from EstructurasDeDatos.TreeAVL import AVLTree
-from leer_csv import leer_csv 
+from leer_csv import leer_csv
+from cancion import Cancion
 
 def main():
-    archivo_csv = 'archive\\spotify_data.csv' 
-    canciones = leer_csv(archivo_csv, 100)
+    # Crear algunas canciones con diferentes años
+    canciones = [
+        Cancion(id="1", artist_name="Artist A", track_year="2020", track_name="Song A", track_id="a1", track_popularity=80, track_duration_ms=210000),
+        Cancion(id="2", artist_name="Artist B", track_year="2021", track_name="Song B", track_id="b1", track_popularity=85, track_duration_ms=220000),
+        Cancion(id="3", artist_name="Artist C", track_year="2020", track_name="Song C", track_id="c1", track_popularity=75, track_duration_ms=200000),
+        Cancion(id="4", artist_name="Artist D", track_year="2022", track_name="Song D", track_id="d1", track_popularity=90, track_duration_ms=230000),
+        Cancion(id="5", artist_name="Artist E", track_year="2021", track_name="Song E", track_id="e1", track_popularity=95, track_duration_ms=250000)
+    ]
+
     avlArbol = AVLTree()
     
+    # Insertar las canciones en el árbol AVL
     for cancion in canciones:
-        avlArbol.insert(cancion.get_track_year())
-
-    for cancion in canciones:
-        print(cancion.get_track_year());
-
-    print('Resultado de los años')
-    print("In-order :", avlArbol.in_order())
+        avlArbol.insert(cancion.get_track_year(), cancion)
+    
+    # Imprimir cada año y las canciones correspondientes
+    for year, song_list in avlArbol.in_order():
+        print(f'Año: {year}')
+        for song in song_list:
+            print(f' - {song}')
 
 if __name__ == "__main__":
     main()

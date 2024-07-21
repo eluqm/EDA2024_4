@@ -1,11 +1,16 @@
+from .LinkedList import LinkedList  
 class Node:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
         self.height = 1
+        self.list_songs = LinkedList()
 
 class AVLTree:
+    def __init__(self):
+        self.root = None
+
     # Obtiene la altura de un nodo
     def _height(self, root):
         if not root:
@@ -62,31 +67,34 @@ class AVLTree:
         return node
     
     # Inserta un nodo en el árbol
-    def _insert(self, root, key):
+    def _insert(self, root, year, song):
         if not root:
-            return Node(key)
+            new_node = Node(year)
+            new_node.list_songs.add(song)  # Añadir la canción a la LinkedList
+            return new_node
         
-        if key < root.key:
-            root.left = self._insert(root.left, key)
-        elif key > root.key:
-            root.right = self._insert(root.right, key)
+        if year < root.key:
+            root.left = self._insert(root.left, year, song)
+        elif year > root.key:
+            root.right = self._insert(root.right, year, song)
         else:
-            pass
+            root.list_songs.add(song)  
 
         return self._rebalance(root)
 
     # Función pública para insertar un nodo
-    def insert(self, key):
+    def insert(self, year, song):
         if not hasattr(self, 'root'):
             self.root = None
-        self.root = self._insert(self.root, key)
+        self.root = self._insert(self.root, year, song)
 
     # Recorre el árbol en orden y guarda las claves en una lista
     def _in_order(self, root, result):
         if not root:
             return
         self._in_order(root.left, result)
-        result.append(root.key)
+        songs = list(root.list_songs) 
+        result.append((root.key, songs))
         self._in_order(root.right, result)
 
     # Función pública para obtener el recorrido en orden del árbol
