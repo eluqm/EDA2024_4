@@ -11,9 +11,10 @@
     <main class="flex m-20 max-w-full h-full">
       <div class="flex flex-col h-full w-3/10 bg-card p-4 rounded-md">
         <nav class="flex flex-col space-y-2 justify-center px-28 items-center font-bold text-lg">
-          <a href="{% url 'index'%}" class="hover:underline">
-            <img src="{% static 'app_episound\media\libros.png' %}" alt="Descripción de la Imagen">
-            Inicio</a>
+          <a href="{% url 'index' %}" class="hover:underline flex items-center">
+            <img src="{% static 'app_episound/media/tocar.png' %}" alt="Descripción de la Imagen" class="w-3 h-3">
+            Inicio
+        </a>
           <a href="{% url 'buscar'%}" class="hover:underline">
             
             Buscar</a>
