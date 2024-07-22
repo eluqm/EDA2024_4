@@ -1,15 +1,13 @@
-# in_memory_data.py
-class Cancion:
-    def __init__(self, titulo, artista, album, duracion):
-        self.titulo = titulo
-        self.artista = artista
-        self.album = album
-        self.duracion = duracion
+import sys
+sys.path.append("../")
+from cancion import Cancion
 
-# Crear una instancia de Cancion
-cancion = Cancion(
-    titulo="Bohemian Rhapsody",
-    artista="Queen",
-    album="A Night at the Opera",
-    duracion="5:55"
-)
+# Crear instancias de Cancion
+canciones = [
+    Cancion(artist_name="Queen", track_name="Bohemian Rhapsody", track_duration_ms=355000),
+    Cancion(artist_name="John Lennon", track_name="Imagine", track_duration_ms=184000),
+    Cancion(artist_name="Eagles", track_name="Hotel California", track_duration_ms=390000),
+    Cancion(artist_name="Queen", track_name="Bohemian Rhapsody", track_duration_ms=355000),
+    Cancion(artist_name="John Lennon", track_name="Imagine", track_duration_ms=184000),
+    Cancion(artist_name="Eagles", track_name="Hotel California", track_duration_ms=390000),
+]
