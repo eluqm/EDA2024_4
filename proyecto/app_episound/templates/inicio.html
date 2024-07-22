@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPISOUND - Bienvenida</title>
+  <link rel="stylesheet" href="{% static 'src/tailwind.css' %}">
+</head>
+<body class="bg-primary w-full h-full flex items-center justify-center">
+
+  <div id="popup" class="bg-card p-6 flex flex-col items-center justify-center space-y-4 rounded-md shadow-lg w-1/2">
+    <h2 class="text-4xl font-bold mb-4">Bienvenido a EpiSound</h2>
+    <p class="mb-4">Alta ganma de canciones</p>
+    <form class="flex flex-col items-center justify-center">
+      <label class="py-4">Indique el numero de canciones: </label>
+      <input class="text-black p-3 rounded-md">
+    </form>
+    <button id="start-button" type="submit" class="bg-primary px-4 py-2 rounded-md">Empezar</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const startButton = document.getElementById('start-button');
+
+      startButton.addEventListener('click', () => {
+        window.location.href = "{% url 'index' %}";
+      });
+    });
+  </script>
+</body>
+</html>
