@@ -1,55 +1,100 @@
 {% extends 'index.html' %}
 {% block content %}
-  <div class="flex flex-col w-2/4">
-    <div class="pl-4 py-4 bg-black rounded-lg text-white ">
-      <div class="w-full" >
-        <nav class="w-3/12 flex flex-row gap-x-64 mb-2 py-2 justify-start">
-          <h1 class="px-3 pb-1 border-b-2 border-red-400 font-bold">Sonando</h1>
-        </nav>
-        <div class="flex flex-row pr-4">
-          <div class="flex items-center justify-between w-full border-2  border-red-400 p-4 bg-black text-white">
-            <div class="flex items-center space-x-4">
-              <div class="min-w-12 min-h-12 w-12 h-12 bg-red-400 flex items-center justify-center text-white text-xl">
+  <div class="flex flex-row space-x-4 bg-transparent">
+    <div class=" flex flex-col w-3/5 bg-black">
+      <div class="pl-4 py-4 bg-black rounded-lg text-white ">
+        <div class="w-full" >
+          <nav class="w-3/12 flex flex-row gap-x-64 mb-2 py-2 justify-start">
+            <h1 class="px-3 pb-1 border-b-2 border-b-primary font-bold text-primary">Sonando</h1>
+          </nav>
+          <div class="flex flex-row pr-4">
+            <div class="flex items-center justify-between w-full border-2  border-primary  p-4 bg-black text-white">
+              <div class="flex items-center space-x-4">
+                <div class="min-w-12 min-h-12 w-12 h-12 bg-fond flex items-center justify-center text-white text-xl">
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-primary"> fwfw</span>
+                  <span class="text-gray-400"> fwafw </span>
+                </div>
               </div>
-              <div class="flex flex-col">
-                <span class="font-bold text-red-400">{{ current_song.track_name }}</span>
-                <span class="text-gray-400">{{ current_song.artist_name }}</span>
-              </div>
-            </div>
-            <div class="flex items-center space-x-4">
-              <span class="font-bold text-red-400">{{ current_song.track_duration_ms }}</span>
-            </div>  
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col pl-4">
-      <div class="w-full" >
-        <nav class="w-44 flex flex-row gap-x-64 mb-2 py-2 justify-start">
-          <h1 class="w-full px-3 mr-3 pb-1 border-b-2 border-white font-bold">Siguiente Cancion</h1>
-        </nav>
-      </div>
-      <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 pr-4 pb-4 flex flex-col" style="height: calc(4 * 6rem + 4 * 1rem);">
-        {% for cancion in canciones %}
-        <div class="flex flex-row">
-          <div class="flex items-center justify-between w-full border-2  border-white p-4 bg-black text-white">
-            <div class="flex items-center space-x-4">
-              <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
-                🎵
-              </div>
-              <div class="flex flex-col">
-                <span class="font-bold tesxt-white">{{ cancion.track_name }}</span>
-                <span class="text-gray-400">{{ cancion.artist_name }}</span>
-              </div>
-            </div>
-            <div class="flex items-center space-x-4">
-              <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+              <div class="flex items-center space-x-4">
+                <span class="font-bold text-red-400"></span>
+              </div>  
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
-    </div>
+      <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col pl-4">
+        <div class="w-full" >
+          <nav class="w-44 flex flex-row gap-x-64 mb-2 py-2 justify-start">
+            <h1 class="w-full px-3 mr-3 pb-1 border-b-2 border-white font-bold">Siguiente Cancion</h1>
+          </nav>
+        </div>
+        <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 pr-4 pb-4 flex flex-col" style="height: calc(4 * 6rem + 4 * 1rem);">
+          {% for cancion in canciones %}
+          <div class="flex flex-row">
+            <div class="flex items-center justify-between w-full border-2  border-white p-4 bg-black text-white">
+              <div class="flex items-center space-x-4">
+                <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
+                  🎵
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold tesxt-white">{{ cancion.track_name }}</span>
+                  <span class="text-gray-400">{{ cancion.artist_name }}</span>
+                </div>
+              </div>
+              <div class="flex items-center space-x-4">
+                <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div> 
+    <div class="flex flex-col w-2/5 border-l-2 border-l-white p-4">
+      <div class="text-primary font-bold p-2">
+        <p class="text-2xl">Sparkle - Movie Version</p>
+        <p class="text-base">RADWIMPS</p>
+      </div>
+      <div class="w-full flex flex-col items-center justify-center p-4">
+        <div class="bg-fond h-44 w-44">
+          fwafwfw
+        </div>
+        <div class="w-full p-2 flex justify-center mt-4 border-2 border-white">
+          <nav class="flex space-x-4 gap-10 font-bold">
+            <a href="#" class="text-white px-4 py-2 rounded-md">Ant.</a>
+            <a href="#" class="text-white px-4 py-2 rounded-md">Play</a>
+            <a href="#" class="text-white px-4 py-2 rounded-md">Sig.</a>
+          </nav>
+        </div>
+      </div>
+      <div class="w-full border-t-2 border-t-white mt-4 my-4 ">
+        <div class="mx-4 mt-4 space-y-4">
+          <p class="text-primary text-lg font-bold mt-2"> Informacion sobre la cancion:</p>
+          <div class="mx-4 font-bold text-base">
+            12415781 vistas
+          </div>
+          <div class="mx-4 font-bold text-base">
+            Top 1
+          </div>
+          <div class="mx-4 font-bold text-base">
+            2024
+          </div>
+        </div>
+      </div>
+      <div class="w-full border-t-2 border-t-white mt-4">
+        <div class="mx-4 mt-4 space-y-4 my-4">
+          <p class="text-primary text-lg font-bold mt-2"> Siguiente Cancion:</p>
+          <div class="py-4 mx-4 font-bold w-full border-b-white border-b-2 px-8 flex flex-row">
+            <div class="bg-fond h-12 w-12"></div>
+            <div class="flex flex-col mx-4"> 
+              <p class="text-lg">Rara vez</p>
+              <p class="text-sm">Milo J</p> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
   </div>
 {% endblock %}
-
