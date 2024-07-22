@@ -54,6 +54,29 @@
           <p> cancion </p>
         </div>
       </div>
+      <button id="abrirVentana" class="absolute right-0 mx-32 top-1/2 transform -translate-y-1/2 bg-fuchsia-800 px-4 py-2 rounded-md">
+        Abrir
+      </button>
     </div>
   </div>
+
+  <div id="emergente" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-8 rounded-md max-w-4xl w-full">
+      <h2 class="text-xl font-bold mb-4">Título del Modal</h2>
+      <p class="mb-4">Contenido del modal va aquí...</p>
+      <button id="cerrarVentana" class="bg-red-500 text-white px-4 py-2 rounded-md">
+        Cerrar
+      </button>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('abrirVentana').addEventListener('click', function() {
+      document.getElementById('emergente').classList.remove('hidden');
+    });
+  
+    document.getElementById('cerrarVentana').addEventListener('click', function() {
+      document.getElementById('emergente').classList.add('hidden');
+    });
+  </script>  
 {% endblock content %}
