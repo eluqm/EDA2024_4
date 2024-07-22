@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from .in_memory_data import canciones
@@ -20,3 +21,6 @@ def mostrar_cancion(request):
 
 def reproducir(request):
   return render(request, "reproduccion/page.html")
+
+def inicio(request):
+  return render(request, "inicio.html")
