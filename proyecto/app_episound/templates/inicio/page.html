@@ -3,17 +3,17 @@
 <div class="w-full p-4 flex justify-center items-center flex-col">
   <div class="flex p-4 max-w-3xl items-start">
     <nav class="w-full flex flex-row gap-x-64 py-2 border-b-2 border-b-white px-7 font-bold">
-      <button>Canciones</button>
+      <h1>Canciones</h1>
     </nav>
   </div>
   <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
-    <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 py-4" style="height: calc(5 * 6rem + 5 * 1rem);">
+    <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 py-4 flex flex-col" style="height: calc(5 * 6rem + 5 * 1rem);">
       {% for cancion in canciones %}
       <div class="flex flex-row">
-        <div class="flex items-center justify-between w-full border-2  border-red-400 p-4 bg-black text-white">
+        <div class="flex items-center justify-between w-full border-2  border-white p-4 bg-black text-white">
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
-              <!-- Aca debemos agregar la imagen -->
+            <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
+              🎵
             </div>
             <div class="flex flex-col">
               <span class="font-bold text-white">{{ cancion.track_name }}</span>
