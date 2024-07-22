@@ -1,17 +1,16 @@
 {% extends 'index.html' %}
 {% block content %}
-  <div class="bg-card   w-full">
-    <h1 class=" flex items-center justify-center font-bold"> EpiSound <h1/>
-  <div/>
-  <div class="flex flex-row space-x-7">
-    <div class="flex flex-col space-y-2">
-      <h1>{{ cancion.titulo }}</h1>
-      <p>Artista: {{ cancion.artista }}</p>
-    </div>
-    <div class="flex flex-col space-y-2">
-      <p>Álbum: {{ cancion.album }}</p>
-      <p>Duración: {{ cancion.duracion }}</p>
+<div class="w-full p-4 flex justify-center items-center flex-col">
+  <div class="flex p-4 max-w-3xl items-start">
+    <nav class="w-full flex flex-row gap-x-64 py-2 border-b-2 border-b-white px-7 font-bold">
+      <button>Canciones</button>
+    </nav>
+  </div>
+  <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
+    <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 py-4" style="height: calc(5 * 6rem + 5 * 1rem);">
+      
     </div>
   </div>
+</div>
 {% endblock content %}
 
