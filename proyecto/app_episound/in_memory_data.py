@@ -1,13 +1,6 @@
 import sys
 sys.path.append("../")
-from cancion import Cancion
+from leer_csv import leer_csv
 
 # Crear instancias de Cancion
-canciones = [
-    Cancion(artist_name="Queen", track_name="Bohemian Rhapsody", track_duration_ms=355000),
-    Cancion(artist_name="John Lennon", track_name="Imagine", track_duration_ms=184000),
-    Cancion(artist_name="Eagles", track_name="Hotel California", track_duration_ms=390000),
-    Cancion(artist_name="Queen", track_name="Bohemian Rhapsody", track_duration_ms=355000),
-    Cancion(artist_name="John Lennon", track_name="Imagine", track_duration_ms=184000),
-    Cancion(artist_name="Eagles", track_name="Hotel California", track_duration_ms=390000),
-]
+canciones = leer_csv("../archive/spotify_data.csv",16)
