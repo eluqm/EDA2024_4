@@ -29,3 +29,6 @@ def reproducir(request):
 
 def inicio(request):
   return render(request, "inicio.html")
+
+
+################ FUNCIONES PARA LA BUSQUEDA ################
