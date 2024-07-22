@@ -44,19 +44,22 @@ class Trie:
     def searchAll(self, prefix):
         current = self.root
         for char in prefix:
+            print(char);
             if not current.children.containsKey(char):
-                return LinkedList() 
+                return LinkedList()  # Retorna una lista vacía si no se encuentra el prefijo
             current = current.children.get(char)
         
-        words_list = LinkedList()
-        self.searchDepth(current, prefix, words_list)
-        return words_list
+        songs_list = LinkedList()
+        self.searchDepth(current, songs_list)
+        return songs_list
 
-    # Busca todas las palabras a partir del nodo dado y agrega las palabras encontradas a la lista.
-    def searchDepth(self, node, prefix, words_list):
+    def searchDepth(self, node, songs_list):
+        # Agrega todas las canciones asociadas con este nodo a la lista
         if node.isWord:
             for song in node.songs:
-                words_list.add(song)
+                songs_list.add(song)
         
-        for char in node.children.entry_set():
-            self.searchDepth(node.children.get(char.key), prefix + char.key, words_list)
+        # Recorre los nodos hijos
+        for entry in node.children.entry_set():
+            child_node = entry.value
+            self.searchDepth(child_node, songs_list)

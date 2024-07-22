@@ -1,7 +1,43 @@
 {% extends 'index.html' %}
 {% block content %}
-  <div class="bg-card   w-full">
-    <h1 class=" flex items-center justify-center font-bold"> Buscador <h1/>
-  <div/>
+  <div class="bg-card w-full">
+    <div class="flex justify-center my-4">
+      <div class="flex w-1/2">
+        <form method="get" action="{% url 'buscar' %}" class="flex w-full" onsubmit="return checkSearchQuery()">
+          <input type="text" id="searchQuery" name="query" placeholder="¿Qué quieres reproducir?" class="flex-grow p-2 border border-white rounded-l-full text-center text-black bg-transparent placeholder-white focus:outline-none">
+          <button type="submit" class="p-2 border border-white text-white bg-transparent rounded-r-full focus:outline-none">Buscar</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 pr-4 pb-4 flex flex-col" style="height: calc(4 * 6rem + 4 * 1rem);">
+      {% if canciones %}
+        {% for cancion in canciones %}
+        <div class="flex flex-row">
+          <div class="flex items-center justify-between w-full border-2 border-white p-4 bg-black text-white">
+            <div class="flex items-center space-x-4">
+              <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-black text-xl">
+                🎵
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-white">{{ cancion.track_name }}</span>
+                <span class="text-gray-400">{{ cancion.artist_name }}</span>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="text-white text-center">
+          No se encontraron canciones.
+        </div>
+      {% endif %}
+    </div>
+  </div>
 {% endblock content %}
 
+{% block extra_js %}
+{% endblock extra_js %}
