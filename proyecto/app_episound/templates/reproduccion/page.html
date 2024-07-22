@@ -1,7 +1,55 @@
 {% extends 'index.html' %}
 {% block content %}
-  <div class="bg-card   w-full">
-    <h1 class=" flex items-center justify-center font-bold"> Reproducir <h1/>
-  <div/>
-{% endblock content %}
+  <div class="flex flex-col w-2/4">
+    <div class="pl-4 py-4 bg-black rounded-lg text-white ">
+      <div class="w-full" >
+        <nav class="w-3/12 flex flex-row gap-x-64 mb-2 py-2 justify-start">
+          <h1 class="px-3 pb-1 border-b-2 border-red-400 font-bold">Sonando</h1>
+        </nav>
+        <div class="flex flex-row pr-4">
+          <div class="flex items-center justify-between w-full border-2  border-red-400 p-4 bg-black text-white">
+            <div class="flex items-center space-x-4">
+              <div class="min-w-12 min-h-12 w-12 h-12 bg-red-400 flex items-center justify-center text-white text-xl">
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold text-red-400">{{ current_song.track_name }}</span>
+                <span class="text-gray-400">{{ current_song.artist_name }}</span>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <span class="font-bold text-red-400">{{ current_song.track_duration_ms }}</span>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col pl-4">
+      <div class="w-full" >
+        <nav class="w-44 flex flex-row gap-x-64 mb-2 py-2 justify-start">
+          <h1 class="w-full px-3 mr-3 pb-1 border-b-2 border-white font-bold">Siguiente Cancion</h1>
+        </nav>
+      </div>
+      <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 pr-4 pb-4 flex flex-col" style="height: calc(4 * 6rem + 4 * 1rem);">
+        {% for cancion in canciones %}
+        <div class="flex flex-row">
+          <div class="flex items-center justify-between w-full border-2  border-white p-4 bg-black text-white">
+            <div class="flex items-center space-x-4">
+              <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
+                🎵
+              </div>
+              <div class="flex flex-col">
+                <span class="font-bold tesxt-white">{{ cancion.track_name }}</span>
+                <span class="text-gray-400">{{ cancion.artist_name }}</span>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
 
