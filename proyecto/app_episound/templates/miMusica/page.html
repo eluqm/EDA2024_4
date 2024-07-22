@@ -1,7 +1,59 @@
 {% extends 'index.html' %}
 {% block content %}
-  <div class="bg-card   w-full">
-    <h1 class=" flex items-center justify-center font-bold"> Se cambia <h1/>
-  <div/>
+  <div class="w-full p-4 flex justify-center items-center flex-col">
+    <div class="flex p-4">
+      <nav class="w-full flex flex-row gap-x-64 py-2 border-b-2 border-b-white px-20 font-bold">
+        <button> Popularidad </button>
+        <button> Año </button>
+        <button> Tiempo de Duracion </button>
+      </nav>
+    </div>
+    <div class="my-4">
+      <nav class="w-full flex flex-row gap-x-12 px-4 font-bold">
+        <button> Ascendente </button>
+        <button> Descendente </button>
+      </nav>
+    </div>
+    <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
+      <!-- Agregar un contenedor con desplazamiento basado en la altura de 5 divs -->
+      <div class="max-w-3xl w-full overflow-y-auto space-y-4" style="height: calc(5 * 6rem + 5 * 1rem);">
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
+          <p> cancion </p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
-
