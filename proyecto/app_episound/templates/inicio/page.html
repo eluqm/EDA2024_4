@@ -3,5 +3,15 @@
   <div class="bg-card   w-full">
     <h1 class=" flex items-center justify-center font-bold"> EpiSound <h1/>
   <div/>
+  <div class="flex flex-row space-x-7">
+    <div class="flex flex-col space-y-2">
+      <h1>{{ cancion.titulo }}</h1>
+      <p>Artista: {{ cancion.artista }}</p>
+    </div>
+    <div class="flex flex-col space-y-2">
+      <p>Álbum: {{ cancion.album }}</p>
+      <p>Duración: {{ cancion.duracion }}</p>
+    </div>
+  </div>
 {% endblock content %}
 
