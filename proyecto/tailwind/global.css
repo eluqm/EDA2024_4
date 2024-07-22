@@ -29,3 +29,19 @@ body {
   color: white;
   background: black;
 }
+
+.text-primary{
+  color: #ad5389;
+}
+
+.border-primary{
+  border:2px solid #ad5389;
+}
+
+.bg-fond{
+  background-color: #ad5389;
+}
+
+.border-b-primary{
+  border-bottom: 2px solid #ad5389;
+}
