@@ -8,7 +8,25 @@
   </div>
   <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
     <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 py-4" style="height: calc(5 * 6rem + 5 * 1rem);">
-      
+      {% for cancion in canciones %}
+      <div class="flex flex-row">
+        <div class="flex items-center justify-between w-full border-2  border-red-400 p-4 bg-black text-white">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-gray-500 flex items-center justify-center text-white text-xl">
+              <!-- Aca debemos agregar la imagen -->
+            </div>
+            <div class="flex flex-col">
+              <span class="font-bold text-white">{{ cancion.track_name }}</span>
+              <span class="text-gray-400">{{ cancion.artist_name }}</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+          </div>
+        </div>
+        <button class="flex text-white m-5 text-4xl text-center">+</button>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </div>
