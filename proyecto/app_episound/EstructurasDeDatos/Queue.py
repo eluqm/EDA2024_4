@@ -43,7 +43,7 @@ class Queue:
 
     def __len__(self):
         return self.size
-    
+
     def __iter__(self):
         self.iter_node = self.front
         return self
@@ -53,7 +53,7 @@ class Queue:
         data = self.iter_node.data
         self.iter_node = self.iter_node.next
         return data
-    
+
     def get_current(self):
         if self.current is None:
             raise IndexError("No current song")
@@ -73,4 +73,7 @@ class Queue:
             current = current.next
         self.current = current
         return self.current.data
+    
+    def clear(self):
+        self.items = []
     
