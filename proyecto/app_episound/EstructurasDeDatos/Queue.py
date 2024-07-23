@@ -54,3 +54,12 @@ class Queue:
             raise IndexError("No next song")
         self.current = self.current.next
         return self.current.data
+    
+    def prev_song(self):
+        if self.current is None or self.current == self.front:
+            raise IndexError("No previous song")
+        current = self.front
+        while current.next != self.current:
+            current = current.next
+        self.current = current
+        return self.current.data
