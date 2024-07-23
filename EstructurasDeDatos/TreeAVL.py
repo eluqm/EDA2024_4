@@ -136,7 +136,7 @@ class AVLTree:
         if not root:
             return
         self._in_order_descending(root.right, result)
-        for song in root.list_songs:
+        for song in root.avlName.allSongsName():
             result.add(song)
         self._in_order_descending(root.left, result)
 

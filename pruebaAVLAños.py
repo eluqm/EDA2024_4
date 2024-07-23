@@ -24,9 +24,9 @@ def main():
         print(f' - {song}')
     
     # Obtener las canciones en orden descendente
-    '''print("\nCanciones ordenadas (descendente):")
+    print("\nCanciones ordenadas (descendente):")
     for song in avlArbol.descending():
-        print(f' - {song}')'''
+        print(f' - {song}')
 
     # Obtener las canciones ede un año en especifico
     print("\nCanciones del año 2020:")
