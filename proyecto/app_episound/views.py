@@ -9,6 +9,9 @@ from .EstructurasDeDatos.Trie import Trie
 misCanciones = LinkedList()
 colaReproducción = Queue()
 global_canciones = datos()
+trieArbol = Trie()
+for cancion in canciones:
+    trieArbol.insert(cancion.get_track_name(), cancion) 
 
 def index(request):
   return render(request, "inicio/page.html") 
@@ -20,7 +23,17 @@ def miMusica(request):
   return render(request, "miMusica/page.html", context)
 
 def buscar(request):
-  return render(request, "buscador/page.html")
+  query = request.GET.get('query', '')  
+  if query:
+    resultados = trieArbol.searchAll(query)
+    print(resultados.size);
+  else:
+    resultados = []
+  context = {
+    'canciones': resultados 
+  }
+  return render(request, "buscador/page.html", context)
+  
 
 def mostrar_cancion(request):
     context = {
@@ -29,11 +42,10 @@ def mostrar_cancion(request):
     return render(request, "inicio/page.html", context)
 
 def reproducir(request):
-    for cancion in misCanciones:
-       colaReproducción.enqueue(cancion)
-       
     context = {
-       'canciones': colaReproducción
+        'canciones': global_canciones,
+        'current_song': current_song,
+        'next_song': next_song,
     }
     return render(request, "reproduccion/page.html", context)
 
@@ -54,23 +66,3 @@ def guardar_id(request):
 
     return redirect('index')
 
-
-
-
-################ FUNCIONES PARA LA BUSQUEDA ################
-# Inicializa el Trie e inserta las canciones
-trieArbol = Trie()
-for cancion in canciones:
-    trieArbol.insert(cancion.get_track_name(), cancion) 
-
-def buscar(request):
-    query = request.GET.get('query', '')  
-    if query:
-        resultados = trieArbol.searchAll(query)
-        print(resultados.size);
-    else:
-        resultados = []
-    context = {
-        'canciones': resultados 
-    }
-    return render(request, "buscador/page.html", context)
