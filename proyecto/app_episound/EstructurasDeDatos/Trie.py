@@ -15,6 +15,7 @@ class Trie:
     # Inserta una palabra en el Trie.
     def insert(self, word, song):
         current = self.root
+        word = word.lower() 
         for char in word:
             if not current.children.containsKey(char):
                 current.children.put(char, TrieNode())
@@ -25,6 +26,7 @@ class Trie:
     # Busca una palabra en el Trie.
     def search(self, word):
         current = self.root
+        word = word.lower() 
         for char in word:
             if not current.children.containsKey(char):
                 return LinkedList() 
@@ -34,6 +36,7 @@ class Trie:
     # Verifica si hay alguna palabra en el Trie que empiece con el prefijo dado.
     def startsWith(self, prefix):
         current = self.root
+        prefix = prefix.lower() 
         for char in prefix:
             if not current.children.containsKey(char):
                 return False
@@ -43,6 +46,7 @@ class Trie:
     # Busca todas las palabras que comienzan con el prefijo dado y las devuelve en una lista.
     def searchAll(self, prefix):
         current = self.root
+        prefix = prefix.lower() 
         for char in prefix:
             print(char);
             if not current.children.containsKey(char):

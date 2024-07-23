@@ -2,10 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .in_memory_data import canciones, current_song , next_song , datos
 from EstructurasDeDatos.HashMap import HashMap
-# Create your views here.
 
 misCanciones = HashMap()
-
 global_canciones = datos()
 
 def index(request):
@@ -45,7 +43,7 @@ def inicio(request):
 
 ################ FUNCIONES PARA LA BUSQUEDA ################
 # Inicializa el Trie e inserta las canciones
-'''import sys
+import sys
 sys.path.append("../")
 from leer_csv import leer_csv
 from .EstructurasDeDatos.Trie import Trie
@@ -59,19 +57,13 @@ for cancion in canciones:
 
 
 def buscar(request):
-    query = request.GET.get('query', '')  # Captura el valor de búsqueda
-    print(f"Search query received: {query}")  # Imprime la consulta en la consola
-    
+    query = request.GET.get('query', '')      
     if query:
-        # Busca todas las canciones que comienzan con el prefijo dado en el Trie
         resultados = trieArbol.searchAll(query)
-        print(resultados.size);
-        #print(resultados.get(0));
-        print(f"Search results: {resultados}")  # Imprime los resultados en la consola
+        print(f"Search results: {resultados}") 
     else:
         resultados = []
-
     context = {
-        'canciones': resultados  # Pasa los resultados como una lista de canciones al contexto
+        'canciones': resultados  
     }
-    return render(request, "buscador/page.html", context)'''
+    return render(request, "buscador/page.html", context)
