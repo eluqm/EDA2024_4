@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -12,6 +11,7 @@ from .EstructurasDeDatos.Trie import Trie
 misCanciones = LinkedList()
 colaReproducción = Queue()
 global_canciones = datos()
+
 
 trieArbol = Trie()
 for cancion in canciones:
@@ -162,3 +162,7 @@ def play_song(request):
 
         return HttpResponseBadRequest("No hay canción actual para reproducir.")
 
+
+
+
+#######VISTAS DE ORDENAMIENTO ########

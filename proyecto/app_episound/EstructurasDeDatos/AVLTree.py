@@ -5,7 +5,7 @@ class Node:
         self.left = None
         self.right = None
         self.height = 1
-        self.list_songs = LinkedList()
+        self.avlNames = LinkedList()
 
 class AVLTree:
     def __init__(self):
@@ -85,8 +85,9 @@ class AVLTree:
     # Función pública para insertar un nodo
     def insert(self, year, song):
         self.root = self._insert(self.root, year, song)
+        
 
-    # Recorre el árbol en orden y guarda las claves en una lista
+    # Recorre el árbol en orden y guarda las claves en una lista (CONSOLA)
     def _in_order(self, root, result):
         if not root:
             return
@@ -95,13 +96,13 @@ class AVLTree:
         result.append((root.key, songs))
         self._in_order(root.right, result)
 
-    # Función pública para obtener el recorrido en orden del árbol
+    # Función pública para obtener el recorrido en orden del árbol  
     def in_order(self):
         result = []
         self._in_order(self.root, result)
         return result
     
-    # Funciones para devolver una lista en fprma descendete o ascendente
+    # Funciones para devolver una lista en forma descendete o ascendente
     def _in_order_ascending(self, root, result):
         if not root:
             return
@@ -145,3 +146,5 @@ class AVLTree:
             return node.list_songs
         else:
             return LinkedList()
+        
+    
