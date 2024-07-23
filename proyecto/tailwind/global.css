@@ -45,3 +45,7 @@ body {
 .border-b-primary{
   border-bottom: 2px solid #ad5389;
 }
+
+a:hover{
+  color: #ad5389;
+}
