@@ -102,11 +102,28 @@ class AVLTree:
             self.root.avlName.root = Node(firstChar)
         self.root.avlName.root = self._insert_name(self.root.avlName.root, firstChar, song)
 
+
+    #FUNCIONES PARA RECORRER TODO EL AVL DE CHARS
+    def _allSongsName(self, root, result):
+        if not root:
+            return
+        self._allSongsName(root.left, result)
+        for song in root.list_songs:
+            result.add(song)
+        self._allSongsName(root.right, result)
+
+    def allSongsName(self):
+        result = LinkedList()
+        self._allSongsName(self.root, result)
+        return result
+
+
+    #FUNCIONES PARA OBTENER UNA LISTA ORDENADA
     def _in_order_ascending(self, root, result):
         if not root:
             return
         self._in_order_ascending(root.left, result)
-        for song in root.list_songs:
+        for song in root.avlName.allSongsName():
             result.add(song)
         self._in_order_ascending(root.right, result)
 
@@ -128,19 +145,8 @@ class AVLTree:
         self._in_order_descending(self.root, result)
         return result
 
-    def _allSongsName(self, root, result):
-        if not root:
-            return
-        self._allSongsName(root.left, result)
-        for song in root.list_songs:
-            result.add(song)
-        self._allSongsName(root.right, result)
 
-    def allSongsName(self):
-        result = LinkedList()
-        self._allSongsName(self.root, result)
-        return result
-
+    #FUNCIONES PARA HALLAR UNA CANCIÓN ESPECIFICADA POR AÑO
     def _find(self, root, year):
         if not root:
             return None

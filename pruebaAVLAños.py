@@ -19,12 +19,12 @@ def main():
         avlArbol.insert(cancion)
     
     # Obtener las canciones en orden ascendente
-    '''print("Canciones ordenadas (ascendente):")
+    print("Canciones ordenadas (ascendente):")
     for song in avlArbol.ascending():
         print(f' - {song}')
     
     # Obtener las canciones en orden descendente
-    print("\nCanciones ordenadas (descendente):")
+    '''print("\nCanciones ordenadas (descendente):")
     for song in avlArbol.descending():
         print(f' - {song}')'''
 
