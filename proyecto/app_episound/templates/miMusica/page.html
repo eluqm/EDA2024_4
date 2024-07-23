@@ -5,12 +5,16 @@
       <nav class="w-full flex flex-row gap-x-64 py-2 border-b-2 border-b-white px-20 font-bold">
         <button> Popularidad </button>
         <button> Año </button>
-        <button> Tiempo de Duracion </button>
+        <button id="duracionButton"> Tiempo de Duracion </button>
       </nav>
     </div>
     <div class="my-4">
       <nav class="w-full flex flex-row gap-x-12 px-4 font-bold">
-        <button> Ascendente </button>
+        {% if request.session.visited_duration %}
+          <button id="ascendenteButton"> Ascendente </button>
+        {% else %}
+          <button disabled> Ascendente </button>
+        {% endif %}
         <button> Descendente </button>
       </nav>
     </div>
@@ -42,7 +46,7 @@
             </div>
           </div>
         </form>
-      {% endfor %}
+        {% endfor %}
       </div>
       <button id="abrirVentana" class="absolute right-0 mx-32 top-1/2 transform -translate-y-1/2 bg-fuchsia-800 px-4 py-2 rounded-md">
         Abrir
@@ -64,9 +68,17 @@
     document.getElementById('abrirVentana').addEventListener('click', function() {
       document.getElementById('emergente').classList.remove('hidden');
     });
-  
+
     document.getElementById('cerrarVentana').addEventListener('click', function() {
       document.getElementById('emergente').classList.add('hidden');
     });
-  </script>  
+
+    document.getElementById('ascendenteButton').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_ascending_Btree' %}";
+    });
+
+    document.getElementById('duracionButton').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_duration' %}";
+    });
+  </script>
 {% endblock content %}
