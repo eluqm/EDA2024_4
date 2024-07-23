@@ -37,6 +37,9 @@ body {
 .border-primary{
   border:2px solid #ad5389;
 }
+.border-primary-alert{
+  border:4px solid #ad5389;
+}
 
 .bg-fond{
   background-color: #ad5389;

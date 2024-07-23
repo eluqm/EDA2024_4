@@ -128,28 +128,38 @@ def reproducir(request):
 def next_song(request):
     try:
         current_song = colaReproducción.next_song()
+        context = {
+            'canciones': colaReproducción,
+            'current_song': current_song,
+            'show_alert': False
+        }
+        return render(request, "reproduccion/page.html", context)
     except IndexError:
-        current_song = None
-    
-    context = {
-        'canciones': colaReproducción,
-        'current_song': current_song
-    }
-    print("Cancion posterior realizada")
-    return render(request, "reproduccion/page.html", context)
+        context = {
+            'canciones': colaReproducción,
+            'current_song': None,
+            'show_alert': True,
+            'alert_message': 'No hay más canciones para avanzar.'
+        }
+        return render(request, "reproduccion/page.html", context)
 
 def prev_song(request):
     try:
-        current_song = colaReproducción.prev_song() 
+        current_song = colaReproducción.prev_song()
+        context = {
+            'canciones': colaReproducción,
+            'current_song': current_song,
+            'show_alert': False
+        }
+        return render(request, "reproduccion/page.html", context)
     except IndexError:
-        current_song = None
-
-    context = {
-        'canciones': colaReproducción,
-        'current_song': current_song
-    }
-    print("Cancion anterior realizada")
-    return render(request, "reproduccion/page.html", context)
+        context = {
+            'canciones': colaReproducción,
+            'current_song': None,
+            'show_alert': True,
+            'alert_message': 'No hay canciones anteriores.'
+        }
+        return render(request, "reproduccion/page.html", context)
 
 def play_song(request):
     try:
