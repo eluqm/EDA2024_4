@@ -43,6 +43,15 @@ class Queue:
 
     def __len__(self):
         return self.size
+    def __iter__(self):
+        self.iter_node = self.front
+        return self
+    def __next__(self):
+        if self.iter_node is None:
+            raise StopIteration
+        data = self.iter_node.data
+        self.iter_node = self.iter_node.next
+        return data
     
     def get_current(self):
         if self.current is None:
@@ -63,3 +72,45 @@ class Queue:
             current = current.next
         self.current = current
         return self.current.data
+    
+    def change_position(self, current_pos, new_pos):
+        if current_pos < 0 or new_pos < 0 or current_pos >= self.size or new_pos >= self.size:
+            raise IndexError("Position out of bounds")
+
+        if self.is_empty():
+            return
+
+        if current_pos == new_pos:
+            return
+
+        prev_node = None
+        node_to_move = self.front
+        for _ in range(current_pos):
+            prev_node = node_to_move
+            node_to_move = node_to_move.next
+
+        # Remove the node from the queue
+        if prev_node:
+            prev_node.next = node_to_move.next
+        else:
+            self.front = node_to_move.next
+        
+        if node_to_move == self.rear:
+            self.rear = prev_node
+        
+        # Insert the node at the new position
+        if new_pos == 0:
+            node_to_move.next = self.front
+            self.front = node_to_move
+        else:
+            prev_node = None
+            insert_after_node = self.front
+            for _ in range(new_pos - 1):
+                prev_node = insert_after_node
+                insert_after_node = insert_after_node.next
+            
+            node_to_move.next = insert_after_node.next
+            insert_after_node.next = node_to_move
+            
+            if node_to_move.next is None:
+                self.rear = node_to_move
