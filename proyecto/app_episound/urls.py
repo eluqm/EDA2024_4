@@ -9,5 +9,5 @@ urlpatterns = [
     path('miMusica', views.miMusica, name="miMusica"),
     path('buscador', views.buscar, name="buscar"),
     path('reproduccion', views.reproducir, name="reproducir"),
-    path('guardar-id/', guardar_id, name='guardar_id')
+    path('guardar-id/', guardar_id, name='guardar_id'),
 ]

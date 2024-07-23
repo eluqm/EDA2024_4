@@ -13,8 +13,8 @@
                 <div class="min-w-12 min-h-12 w-12 h-12 bg-fond flex items-center justify-center text-white text-xl">
                 </div>
                 <div class="flex flex-col">
-                  <span class="font-bold text-primary"> fwfw</span>
-                  <span class="text-gray-400"> fwafw </span>
+                  <span class="font-bold text-primary"> {{cancion.track_name}}</span>
+                  <span class="text-gray-400"> {{cancion.artist_name}}</span>
                 </div>
               </div>
               <div class="flex items-center space-x-4">
@@ -65,7 +65,7 @@
           <nav class="flex space-x-4 gap-10 font-bold">
             <a href="#" class="text-white px-4 py-2 rounded-md">Ant.</a>
             <a href="#" class="text-white px-4 py-2 rounded-md">Play</a>
-            <a href="#" class="text-white px-4 py-2 rounded-md">Sig.</a>
+            <button onClick="location.href='{% url 'reproducir' %}'" class="text-white px-4 py-2 rounded-md">Sig.</button>
           </nav>
         </div>
       </div>
@@ -97,4 +97,3 @@
       </div>
     </div>    
   </div>
-{% endblock %}
