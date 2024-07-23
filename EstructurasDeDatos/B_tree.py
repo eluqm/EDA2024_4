@@ -98,3 +98,23 @@ class BTree:
         songs = self.in_orden()
         for song in songs:
             print(song)
+
+    def in_orden_reverse(self, node=None):
+        if node is None:
+            node = self.root
+        result = []
+        i = len(node.keys) - 1
+        while i >= 0:
+            if not node.leaf:
+                result.extend(self.in_orden_reverse(node.children[i + 1]))
+            result.extend(node.song_lists[i].to_list())
+            i -= 1
+        if not node.leaf:
+            result.extend(self.in_orden_reverse(node.children[0]))
+        return result
+
+        
+    def descending(self):
+        songs = self.in_orden_reverse()
+        for song in songs:
+            print(song)
