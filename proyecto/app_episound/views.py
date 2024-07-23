@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import JsonResponse
 from .in_memory_data import canciones, current_song, datos
 from .EstructurasDeDatos.HashMap import HashMap
@@ -127,3 +128,15 @@ def prev_song(request):
     }
     print("Cancion anterior realizada")
     return render(request, "reproduccion/page.html", context)
+
+def play_song(request):
+    try:
+        song_actual = colaReproducción.get_current()
+        
+        spotify_url = f"https://open.spotify.com/track/{song_actual.track_id}"
+        print("Direccion preparada")
+        return redirect(spotify_url)
+    except IndexError:
+
+        return HttpResponseBadRequest("No hay canción actual para reproducir.")
+
