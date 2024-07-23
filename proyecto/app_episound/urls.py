@@ -9,5 +9,7 @@ urlpatterns = [
     path('miMusica', views.miMusica, name="miMusica"),
     path('buscador', views.buscar, name="buscar"),
     path('reproduccion', views.reproducir, name="reproducir"),
-    path('guardar-id/', guardar_id, name='guardar_id'),
+    path('guardar-id/', views.guardar_id, name='guardar_id'),
+    path('next-song/', views.next_song, name='next_song'),
+    path('prev-song/', views.prev_song, name='prev_song'),
 ]
