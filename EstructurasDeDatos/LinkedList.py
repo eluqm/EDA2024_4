@@ -60,3 +60,37 @@ class LinkedList:
         data = self.current.data
         self.current = self.current.next
         return data
+
+    def get(self, index):
+        if index < 0 or index >= self.size:
+            raise IndexError("Índice fuera de rango.")
+        current = self.head
+        for _ in range(index):
+            current = current.next
+        return current.data
+
+    def clear(self):
+        self.head = None
+        self.size = 0
+
+    def insert(self, index, data):
+        if index < 0 or index > self.size:
+            raise IndexError("Índice fuera de rango.")
+        if index == 0:
+            self.add(data)  # Add at the beginning
+        else:
+            new_node = Node(data)
+            current = self.head
+            for _ in range(index - 1):
+                current = current.next
+            new_node.next = current.next
+            current.next = new_node
+            self.size += 1
+
+    def to_list(self):
+        result = []
+        current = self.head
+        while current is not None:
+            result.append(current.data)
+            current = current.next
+        return result
