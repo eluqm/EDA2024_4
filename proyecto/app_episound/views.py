@@ -85,8 +85,11 @@ def eliminar_id(request):
         except ValueError as e:
             print(f"Error: {e}")
 
-    return redirect('inicio')
+    context = {
+            'canciones': colaReproducción
+    }
 
+    return render(request, "miMusica/page.html", context)
 
 def reproducir(request):
     # Verifica si colaReproducción está definida y tiene canciones
