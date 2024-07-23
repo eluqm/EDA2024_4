@@ -59,16 +59,16 @@ class AVLTree:
         
         return node
     
-    def _insert_year(self, root, song):
+    def _insert_value(self, root, valueNumeric, song):
         if not root:
-            new_node = Node(song.get_track_year())
+            new_node = Node(valueNumeric)
             new_node.avlName.root = new_node.avlName._insert_name(new_node.avlName.root, song.get_track_name(), song)
             return new_node
         
-        if song.get_track_year() < root.key:
-            root.left = self._insert_year(root.left, song)
-        elif song.get_track_year() > root.key:
-            root.right = self._insert_year(root.right, song)
+        if valueNumeric < root.key:
+            root.left = self._insert_value(root.left, valueNumeric, song)
+        elif valueNumeric > root.key:
+            root.right = self._insert_value(root.right, valueNumeric, song)
         else:
             root.avlName.root = root.avlName._insert_name(root.avlName.root, song.get_track_name(), song)
 
@@ -89,10 +89,10 @@ class AVLTree:
 
         return self._rebalance(root)
 
-    def insert(self, song):
+    def insert(self, valueNumeric, song):
         if not self.root:
             self.root = Node(float('-inf'))  # Usa un valor adecuado en lugar de None
-        self.root = self._insert_year(self.root, song)
+        self.root = self._insert_value(self.root, valueNumeric, song)
     
     def insert_word(self, word, song):
         if not self.root:
@@ -101,7 +101,6 @@ class AVLTree:
         if not self.root.avlName.root:
             self.root.avlName.root = Node(firstChar)
         self.root.avlName.root = self._insert_name(self.root.avlName.root, firstChar, song)
-
 
     #FUNCIONES PARA RECORRER TODO EL AVL DE CHARS
     def _allSongsName(self, root, result):

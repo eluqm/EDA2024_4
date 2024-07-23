@@ -16,7 +16,7 @@ def main():
     
     # Insertar las canciones en el árbol AVL
     for cancion in canciones:
-        avlArbol.insert(cancion)
+        avlArbol.insert(cancion.get_track_year(), cancion)
     
     # Obtener las canciones en orden ascendente
     print("Canciones ordenadas (ascendente):")
