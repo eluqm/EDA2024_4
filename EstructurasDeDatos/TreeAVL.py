@@ -68,16 +68,16 @@ class AVLTree:
         return node
     
     # Inserta un nodo en el árbol
-    def _insert_year(self, root, year, song):
+    def _insert_year(self, root, song):
         if not root:
-            new_node = Node(year)
-            new_node.avlName.insert(self, song.get_track_name() ,song)  # Añadir la canción al AVL de nombres
+            new_node = Node(song.get_track_year())
+            new_node.avlName._insert_name(self, song.get_track_name() ,song)  # Añadir la canción al AVL de nombres
             return new_node
         
-        if year < root.key:
-            root.left = self._insert(root.left, year, song)
-        elif year > root.key:
-            root.right = self._insert(root.right, year, song)
+        if song.get_track_year() < root.key:
+            root.left = self._insert_year(root.left, song.get_track_year(), song)
+        elif song.get_track_year() > root.key:
+            root.right = self._insert_year(root.right, song.get_track_year(), song)
         else:
             root.avlName.insert(self, song.get_track_name() ,song)
 
@@ -90,9 +90,9 @@ class AVLTree:
             return new_node
         
         if firstChar < root.key:
-            root.left = self._insert(root.left, firstChar, song)
+            root.left = self._insert_name(root.left, firstChar, song)
         elif firstChar > root.key:
-            root.right = self._insert(root.right, firstChar, song)
+            root.right = self._insert_name(root.right, firstChar, song)
         else:
             root.list_songs.add(song) 
 
@@ -100,29 +100,13 @@ class AVLTree:
 
     # Función pública para insertar nodos
     #Por año
-    def insert(self, year, song):
-        self.root = self._insert(self.root, year, song)
+    def insert(self, song):
+        self.root = self._insert_year(self.root, song)
     
     #Por orden alfabetico
-    def insert(self, word, song):
+    def insert_word(self, word, song):
         firstChar = word[0].lower()
-        self.root = self._insert(self.root, firstChar, song)
-        
-
-    # Recorre el árbol en orden y guarda las claves en una lista
-    def _in_order(self, root, result):
-        if not root:
-            return
-        self._in_order(root.left, result)
-        songs = list(root.list_songs) 
-        result.append((root.key, songs))
-        self._in_order(root.right, result)
-
-    # Función pública para obtener el recorrido en orden del árbol
-    def in_order(self):
-        result = []
-        self._in_order(self.root, result)
-        return result
+        self.root = self._insert_name(self.root, firstChar, song)
     
     # Funciones para devolver una lista en fprma descendete o ascendente
     def _in_order_ascending(self, root, result):
@@ -151,7 +135,22 @@ class AVLTree:
         self._in_order_descending(self.root, result)
         return result
     
+
+
     #Función para retornar la lista de un año en especifico
+    def allSongsName(self):
+        result = LinkedList()
+        self._allSongsName(self.root, result)
+        return result
+
+    def _allSongsName(self, root, result):
+        if not root:
+            return
+        self._allSongsName(root.left, result)
+        for song in root.list_songs:
+            result.add(song)
+        self._allSongsName(root.right, result)
+
     def _find(self, root, year):
         if not root:
             return None
@@ -161,10 +160,10 @@ class AVLTree:
             return self._find(root.left, year)
         else:
             return self._find(root.right, year)
-        
+
     def specifiedYear(self, year):
         node = self._find(self.root, year)
         if node:
-            return node.list_songs
+            return node.avlName.allSongsName()
         else:
             return LinkedList()
