@@ -9,8 +9,10 @@
   <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
     <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 py-4 flex flex-col" style="height: calc(5 * 6rem + 5 * 1rem);">
       {% for cancion in canciones %}
-      <div class="flex flex-row">
-        <div class="flex items-center justify-between w-full border-2  border-white p-4 bg-black text-white">
+      <form method="POST" action="{% url 'guardar_id' %}" class="flex flex-row">
+        {% csrf_token %}
+        <input type="hidden" name="cancion_id" value="{{ cancion.id }}">
+        <div class="flex items-center justify-between w-full border-2 border-white p-4 bg-black text-white">
           <div class="flex items-center space-x-4">
             <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
               🎵
@@ -22,16 +24,13 @@
           </div>
           <div class="flex items-center space-x-4">
             <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
-            <span class="font-bold text-white">{{ cancion.id |add:1}}</span>
+            <span class="font-bold text-white">{{ cancion.id |add:1 }}</span>
           </div>
         </div>
-        <form method="POST" >
-          <button class="flex text-white m-5 text-4xl text-center">+</button>
-        </form>
-      </div>
+        <button type="submit" class="flex text-white m-5 text-4xl text-center">+</button>
+      </form>
       {% endfor %}
     </div>
   </div>
 </div>
 {% endblock content %}
-
