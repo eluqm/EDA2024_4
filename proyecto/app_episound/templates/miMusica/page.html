@@ -17,42 +17,11 @@
     <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
       <!-- Agregar un contenedor con desplazamiento basado en la altura de 5 divs -->
       <div class="max-w-3xl w-full overflow-y-auto space-y-4" style="height: calc(5 * 6rem + 5 * 1rem);">
+        {% for cancion in canciones %}
         <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
+          <p> {{cancion.artist_name}} </p>
         </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> cancion </p>
-        </div>
+        {% endfor %}
       </div>
       <button id="abrirVentana" class="absolute right-0 mx-32 top-1/2 transform -translate-y-1/2 bg-fuchsia-800 px-4 py-2 rounded-md">
         Abrir
