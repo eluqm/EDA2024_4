@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
 from .in_memory_data import canciones, current_song, datos
 from .EstructurasDeDatos.HashMap import HashMap
 from .EstructurasDeDatos.LinkedList import LinkedList
@@ -42,13 +43,6 @@ def mostrar_cancion(request):
     }
     return render(request, "inicio/page.html", context)
 
-def reproducir(request):
-    context = {
-        'canciones': colaReproducción,
-        'current_song': colaReproducción.peek()  # Mostrar la canción actual
-    }
-    return render(request, "reproduccion/page.html", context)
-
 def inicio(request):
     return render(request, "inicio.html")
 
@@ -71,19 +65,65 @@ def guardar_id(request):
 
     return redirect('index')
 
+def eliminar_id(request):
+    if request.method == 'POST':
+        cancion_id = request.POST.get('cancion_id')
+        try:
+            cancion_id = int(cancion_id)
+            cancion_select = global_canciones.get(cancion_id)
+            
+            if misCanciones.contains(cancion_select):
+                misCanciones.remove(cancion_select)  # Elimina de la lista de canciones
+                if colaReproducción.contains(cancion_select):
+                    colaReproducción.remove(cancion_select)  # Elimina de la cola de reproducción
+                print(f"ID de la canción recibida: {cancion_id}")
+                print(f"Detalles de la canción eliminada: {cancion_select}")
+            else:
+                print("La canción no está en la lista.")
+                
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    return redirect('inicio')
+
+
+def reproducir(request):
+    # Verifica si colaReproducción está definida y tiene canciones
+    if not colaReproducción or colaReproducción.is_empty():
+        context = {
+            'canciones': [],
+            'current_song': None
+        }
+    else:
+        context = {
+            'canciones': colaReproducción,
+            'current_song': colaReproducción.peek()  # Mostrar la canción actual
+        }
+    
+    return render(request, "reproduccion/page.html", context)
+
 def next_song(request):
-    nextSong = colaReproducción.next_song()  # Obtiene la siguiente canción
+    try:
+        current_song = colaReproducción.next_song()
+    except IndexError:
+        current_song = None
+    
     context = {
         'canciones': colaReproducción,
-        'current_song': nextSong
+        'current_song': current_song
     }
+    print("Cancion posterior realizada")
     return render(request, "reproduccion/page.html", context)
 
 def prev_song(request):
-    prev_song = colaReproducción.prev_song()
-    # Necesitarás implementar lógica para la canción anterior si usas una cola circular o similar
+    try:
+        current_song = colaReproducción.prev_song() 
+    except IndexError:
+        current_song = None
+
     context = {
         'canciones': colaReproducción,
-        'current_song': prev_song  # Aquí deberías definir cómo obtener la canción anterior
+        'current_song': current_song
     }
+    print("Cancion anterior realizada")
     return render(request, "reproduccion/page.html", context)
