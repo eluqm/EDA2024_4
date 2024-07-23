@@ -5,6 +5,7 @@ class Node:
         self.left = None
         self.right = None
         self.height = 1
+        self.avlName = AVLTree()
         self.list_songs = LinkedList()
 
 class AVLTree:
@@ -67,10 +68,10 @@ class AVLTree:
         return node
     
     # Inserta un nodo en el árbol
-    def _insert(self, root, year, song):
+    def _insert_year(self, root, year, song):
         if not root:
             new_node = Node(year)
-            new_node.list_songs.add(song)  # Añadir la canción a la LinkedList
+            new_node.avlName.insert(self, song.get_track_name() ,song)  # Añadir la canción al AVL de nombres
             return new_node
         
         if year < root.key:
@@ -78,13 +79,35 @@ class AVLTree:
         elif year > root.key:
             root.right = self._insert(root.right, year, song)
         else:
-            root.list_songs.add(song)  
+            root.avlName.insert(self, song.get_track_name() ,song)
+
+        return self._rebalance(root)
+    
+    def _insert_name(self, root, firstChar, song):
+        if not root:
+            new_node = Node(firstChar)
+            new_node.list_songs.add(song)  # Añadir la canción a la lista de canciones
+            return new_node
+        
+        if firstChar < root.key:
+            root.left = self._insert(root.left, firstChar, song)
+        elif firstChar > root.key:
+            root.right = self._insert(root.right, firstChar, song)
+        else:
+            root.list_songs.add(song) 
 
         return self._rebalance(root)
 
-    # Función pública para insertar un nodo
+    # Función pública para insertar nodos
+    #Por año
     def insert(self, year, song):
         self.root = self._insert(self.root, year, song)
+    
+    #Por orden alfabetico
+    def insert(self, word, song):
+        firstChar = word[0].lower()
+        self.root = self._insert(self.root, firstChar, song)
+        
 
     # Recorre el árbol en orden y guarda las claves en una lista
     def _in_order(self, root, result):
