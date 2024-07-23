@@ -107,3 +107,13 @@ class Queue:
                 return True
             current = current.next
         return False
+        
+    def peek_front(self):
+        if self.is_empty():
+            raise IndexError("Peek from empty queue")
+        return self.front.data
+    
+    def peek_rear(self):
+        if self.is_empty():
+            raise IndexError("Peek from empty queue")
+        return self.rear.data
