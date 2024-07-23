@@ -13,8 +13,8 @@
                 <div class="min-w-12 min-h-12 w-12 h-12 bg-fond flex items-center justify-center text-white text-xl">
                 </div>
                 <div class="flex flex-col">
-                  <span class="font-bold text-primary"> {{cancion.track_name}}</span>
-                  <span class="text-gray-400"> {{cancion.artist_name}}</span>
+                  <span class="font-bold text-primary"> {{current_song.track_name}}</span>
+                  <span class="text-gray-400"> {{current_song.artist_name}}</span>
                 </div>
               </div>
               <div class="flex items-center space-x-4">
@@ -54,8 +54,8 @@
     </div> 
     <div class="flex flex-col w-2/5 border-l-2 border-l-white p-4">
       <div class="text-primary font-bold p-2">
-        <p class="text-2xl">Sparkle - Movie Version</p>
-        <p class="text-base">RADWIMPS</p>
+        <p class="text-2xl">{{current_song.track_name}}</p>
+        <p class="text-base">{{current_song.artist_name}}</p>
       </div>
       <div class="w-full flex flex-col items-center justify-center p-4">
         <div class="bg-fond h-44 w-44">
@@ -63,9 +63,15 @@
         </div>
         <div class="w-full p-2 flex justify-center mt-4 border-2 border-white">
           <nav class="flex space-x-4 gap-10 font-bold">
-            <a href="#" class="text-white px-4 py-2 rounded-md">Ant.</a>
-            <a href="#" class="text-white px-4 py-2 rounded-md">Play</a>
-            <button onClick="location.href='{% url 'reproducir' %}'" class="text-white px-4 py-2 rounded-md">Sig.</button>
+            <form action="{% url 'prev_song' %}" method="get">
+              <button type="submit" class="text-white px-4 py-2 rounded-md">Ant.</button>
+            </form>
+            <form action="{% url 'reproducir' %}" method="get">
+              <button type="submit" class="text-white px-4 py-2 rounded-md">Play</button>
+            </form>
+            <form action="{% url 'next_song' %}" method="get">
+              <button type="submit" class="text-white px-4 py-2 rounded-md">Sig.</button>
+            </form>
           </nav>
         </div>
       </div>
@@ -73,27 +79,16 @@
         <div class="mx-4 mt-4 space-y-4">
           <p class="text-primary text-lg font-bold mt-2"> Informacion sobre la cancion:</p>
           <div class="mx-4 font-bold text-base">
-            12415781 vistas
+            {{current_song.track_duration_ms}}
           </div>
           <div class="mx-4 font-bold text-base">
-            Top 1
+            {{current_song.track_popularity}}
           </div>
           <div class="mx-4 font-bold text-base">
-            2024
-          </div>
-        </div>
-      </div>
-      <div class="w-full border-t-2 border-t-white mt-4">
-        <div class="mx-4 mt-4 space-y-4 my-4">
-          <p class="text-primary text-lg font-bold mt-2"> Siguiente Cancion:</p>
-          <div class="py-4 mx-4 font-bold w-full border-b-white border-b-2 px-8 flex flex-row">
-            <div class="bg-fond h-12 w-12"></div>
-            <div class="flex flex-col mx-4"> 
-              <p class="text-lg">Rara vez</p>
-              <p class="text-sm">Milo J</p> 
-            </div>
+            {{current_song.track_year}}
           </div>
         </div>
       </div>
     </div>    
   </div>
+{% endblock %}
