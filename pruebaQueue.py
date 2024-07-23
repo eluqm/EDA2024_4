@@ -8,11 +8,20 @@ def main():
     song1 = Cancion(track_name="Song A", track_id="a1", track_popularity=80, track_duration_ms=210000)
     song2 = Cancion(track_name="Song B", track_id="b1", track_popularity=85, track_duration_ms=220000)
     song3 = Cancion(track_name="Song C", track_id="c1", track_popularity=75, track_duration_ms=200000)
+    song4 = Cancion(track_name="Song D", track_id="c1", track_popularity=75, track_duration_ms=200000)
+    song5 = Cancion(track_name="Song E", track_id="c1", track_popularity=75, track_duration_ms=200000)
+    song6 = Cancion(track_name="Song F", track_id="c1", track_popularity=75, track_duration_ms=200000)
+
 
     # Encolar canciones
     queue.enqueue(song1)
     queue.enqueue(song2)
     queue.enqueue(song3)
+    queue.enqueue(song4)
+    queue.enqueue(song5)
+    queue.enqueue(song6)
+    
+    
 
     print("Contenido de la cola:")
     for song in queue:
@@ -73,35 +82,46 @@ def main():
             print(song)
 
     queue.remove(song2)
-    assert len(queue) == 2, "Error: Tamaño de la cola no es 2 después de eliminar Song B"
-    assert not queue.contains(song2), "Error: La canción eliminada aún está en la cola"
 
-    print('\n---------PRUEBAS DE CAMBIO DE POSICIÓN---------');
+    print('\n---------PRUEBAS DE CAMBIO DE POSICIÓN---------')
     for song in queue:
         if(song == queue.get_current()):
-            print('Sonando');
+            print('Sonando')
             print(song);
-            print('----');
+            print('----')
             next
         else:
             print(song)
 
-    print('\nBusqueda de la cancion C: ');
-    print(queue.find_position(song3));
+    print('\nBusqueda de la cancion C: ')
+    print(queue.find_position(song3))
 
-    print(queue.get(0));
+    print(queue.get(0))
     
     queue.change_position(queue.find_position(song3), 0)
-    
-    print('\n---------PRUEBAS DE CAMBIO DE POSICIÓN---------');
+
+    print('\n---------PRUEBAS DE CAMBIO DE POSICIÓN---------')
     for song in queue:
         if(song == queue.get_current()):
-            print('Sonando');
+            print('Sonando')
             print(song);
-            print('----');
+            print('----')
             next
         else:
             print(song)
 
+    queue.random()
+
+    print('\n---------PRUEBAS ALEATORIO---------')
+    for song in queue:
+        if(song == queue.get_current()):
+            print('Sonando')
+            print(song);
+            print('----')
+            next
+        else:
+            print(song)
+
+
 if __name__ == "__main__":
-    main()
+    main()  

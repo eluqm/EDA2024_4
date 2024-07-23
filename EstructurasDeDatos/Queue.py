@@ -1,3 +1,5 @@
+import random
+
 class Node:
     def __init__(self, data, position=None):
         self.data = data
@@ -169,5 +171,23 @@ class Queue:
         data_nueva = self.get(posicion_nueva)
         self.put(posicion_nueva, data_actual)
         self.put(posicion_actual, data_nueva)
-
         self._update_positions()
+
+    def random(self):
+        if self.is_empty():
+            return
+        lista_datos = []
+        actual = self.front
+        while actual:
+            lista_datos.append(actual.data)
+            actual = actual.next
+
+        n = len(lista_datos)
+        for i in range(n - 1, 0, -1):
+            j = random.randint(0, i)
+            lista_datos[i], lista_datos[j] = lista_datos[j], lista_datos[i]
+
+        self.clear()
+
+        for dato in lista_datos:
+            self.enqueue(dato)
