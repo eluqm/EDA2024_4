@@ -93,21 +93,54 @@
     </div>
   </div>
 
+  <!-- Modal de alerta -->
+  <div id="alert-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+    <div class="bg-black p-6 rounded-lg shadow-lg text-center border-primary-alert">
+      <div id="alert-message" class="text-white font-bold"></div>
+      <button id="close-alert" class="mt-4 px-4 py-2 bg-fuchsia-800 text-white rounded-md">Cerrar</button>
+    </div>
+  </div>
+
   <script>
-    // Función para manejar la navegación entre canciones
+    document.addEventListener('DOMContentLoaded', function() {
+      const alertModal = document.getElementById('alert-modal');
+      const alertMessage = document.getElementById('alert-message');
+      const showAlert = "{{ show_alert }}";
+      const alertText = "{{ alert_message }}";
+
+      if (showAlert === "True") {
+        alertMessage.textContent = alertText;
+        alertModal.classList.remove('hidden');
+      }
+
+      document.getElementById('close-alert').addEventListener('click', function() {
+        alertModal.classList.add('hidden');
+      });
+    });
+
     document.getElementById('prev-song-btn').addEventListener('click', function(event) {
       event.preventDefault();
+      if (!document.getElementById('alert-modal').classList.contains('hidden')) {
+        return; // No navega si el modal está visible
+      }
       window.location.href = "{% url 'prev_song' %}";
     });
 
     document.getElementById('next-song-btn').addEventListener('click', function(event) {
       event.preventDefault();
+      if (!document.getElementById('alert-modal').classList.contains('hidden')) {
+        return; // No navega si el modal está visible
+      }
       window.location.href = "{% url 'next_song' %}";
     });
 
     document.getElementById('play-btn').addEventListener('click', function(event) {
       event.preventDefault();
+      if (!document.getElementById('alert-modal').classList.contains('hidden')) {
+        return; // No navega si el modal está visible
+      }
       window.location.href = "{% url 'play_song' %}";
     });
+
   </script>
 {% endblock %}
