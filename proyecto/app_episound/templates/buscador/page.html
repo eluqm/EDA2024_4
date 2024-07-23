@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% block content %}
-  <div class="bg-card w-full">
+  <div class="w-full ">
     <div class="flex justify-center my-4">
       <div class="flex w-1/2">
         <form method="get" action="{% url 'buscar' %}" class="flex w-full" onsubmit="return checkSearchQuery()">
@@ -10,17 +10,17 @@
       </div>
     </div>
     
-    <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 pr-4 pb-4 flex flex-col" style="height: calc(4 * 6rem + 4 * 1rem);">
+    <div class="mx-auto space-y-4 my-10 max-w-4xl w-full overflow-y-auto space-y- pr-4 pb-4 flex flex-col" style="height: calc(4 * 8rem + 4 * 1rem);">
       {% if canciones %}
         {% for cancion in canciones %}
         <div class="flex flex-row">
-          <div class="flex items-center justify-between w-full border-2 border-white p-4 bg-black text-white">
+          <div class="flex items-center justify-between w-full border-2  border-white p-4 bg-black text-white">
             <div class="flex items-center space-x-4">
-              <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-black text-xl">
+              <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
                 🎵
               </div>
               <div class="flex flex-col">
-                <span class="font-bold text-white">{{ cancion.track_name }}</span>
+                <span class="font-bold tesxt-white">{{ cancion.track_name }}</span>
                 <span class="text-gray-400">{{ cancion.artist_name }}</span>
               </div>
             </div>
