@@ -89,9 +89,19 @@ def main():
     print('\nBusqueda de la cancion C: ');
     print(queue.find_position(song3));
 
-
-
-
+    print(queue.get(0));
+    
+    queue.change_position(queue.find_position(song3), 0)
+    
+    print('\n---------PRUEBAS DE CAMBIO DE POSICIÓN---------');
+    for song in queue:
+        if(song == queue.get_current()):
+            print('Sonando');
+            print(song);
+            print('----');
+            next
+        else:
+            print(song)
 
 if __name__ == "__main__":
     main()

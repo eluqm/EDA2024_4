@@ -127,6 +127,27 @@ class Queue:
                 return current.position
             current = current.next
         raise ValueError("Item not found in queue")
+    
+    def get(self, position):
+        if position < 0 or position >= self.size:
+            raise IndexError("Position out of bounds")
+        current = self.front
+        while current:
+            if current.position == position:
+                return current.data
+            current = current.next
+        raise ValueError("Song not found at position")
+    
+    def put(self, position, new_data):
+        if position < 0 or position >= self.size:
+            raise IndexError("Position out of bounds")
+        current = self.front
+        while current:
+            if current.position == position:
+                current.data = new_data
+                return
+            current = current.next
+        raise ValueError("Position not found")
 
     def _update_positions(self):
         current = self.front
@@ -135,3 +156,18 @@ class Queue:
             current.position = position
             current = current.next
             position += 1
+
+    def change_position(self, posicion_actual, posicion_nueva):
+        if posicion_actual == posicion_nueva:
+            return
+
+        if (posicion_actual < 0 or posicion_actual >= self.size or
+            posicion_nueva < 0 or posicion_nueva >= self.size):
+            raise IndexError("Posición fuera de los límites")
+
+        data_actual = self.get(posicion_actual)
+        data_nueva = self.get(posicion_nueva)
+        self.put(posicion_nueva, data_actual)
+        self.put(posicion_actual, data_nueva)
+
+        self._update_positions()
