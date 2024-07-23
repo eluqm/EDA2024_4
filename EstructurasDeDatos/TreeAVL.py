@@ -12,23 +12,19 @@ class AVLTree:
     def __init__(self):
         self.root = None
 
-    # Obtiene la altura de un nodo
     def _height(self, root):
         if not root:
             return 0
         return root.height
     
-    # Actualiza la altura de un nodo
     def _update_height(self, node):
         node.height = 1 + max(self._height(node.left), self._height(node.right))
 
-    # Calcula el factor de balanceo de un nodo
     def _balance_factor(self, node):
         if not node:
             return 0
         return self._height(node.left) - self._height(node.right)
     
-    # Rotación hacia la derecha
     def _rotate_right(self, y):
         x = y.left
         T2 = x.right
@@ -38,7 +34,6 @@ class AVLTree:
         self._update_height(x)
         return x
     
-    # Rotación hacia la izquierda
     def _rotate_left(self, x):
         y = x.right
         T2 = y.left
@@ -48,18 +43,15 @@ class AVLTree:
         self._update_height(y)
         return y
     
-    # Rebalancea un nodo
     def _rebalance(self, node):
         self._update_height(node)
         balance = self._balance_factor(node)
         
-        # Si está desbalanceado hacia la izquierda
         if balance > 1:
             if self._balance_factor(node.left) < 0:
                 node.left = self._rotate_left(node.left)
             return self._rotate_right(node)
         
-        # Si está desbalanceado hacia la derecha
         if balance < -1:
             if self._balance_factor(node.right) > 0:
                 node.right = self._rotate_right(node.right)
@@ -67,26 +59,25 @@ class AVLTree:
         
         return node
     
-    # Inserta un nodo en el árbol
     def _insert_year(self, root, song):
         if not root:
             new_node = Node(song.get_track_year())
-            new_node.avlName._insert_name(self, song.get_track_name() ,song)  # Añadir la canción al AVL de nombres
+            new_node.avlName.root = new_node.avlName._insert_name(new_node.avlName.root, song.get_track_name(), song)
             return new_node
         
         if song.get_track_year() < root.key:
-            root.left = self._insert_year(root.left, song.get_track_year(), song)
+            root.left = self._insert_year(root.left, song)
         elif song.get_track_year() > root.key:
-            root.right = self._insert_year(root.right, song.get_track_year(), song)
+            root.right = self._insert_year(root.right, song)
         else:
-            root.avlName.insert(self, song.get_track_name() ,song)
+            root.avlName.root = root.avlName._insert_name(root.avlName.root, song.get_track_name(), song)
 
         return self._rebalance(root)
     
     def _insert_name(self, root, firstChar, song):
         if not root:
             new_node = Node(firstChar)
-            new_node.list_songs.add(song)  # Añadir la canción a la lista de canciones
+            new_node.list_songs.add(song)
             return new_node
         
         if firstChar < root.key:
@@ -98,17 +89,19 @@ class AVLTree:
 
         return self._rebalance(root)
 
-    # Función pública para insertar nodos
-    #Por año
     def insert(self, song):
+        if not self.root:
+            self.root = Node(float('-inf'))  # Usa un valor adecuado en lugar de None
         self.root = self._insert_year(self.root, song)
     
-    #Por orden alfabetico
     def insert_word(self, word, song):
+        if not self.root:
+            self.root = Node(float('-inf'))  # Usa un valor adecuado en lugar de None
         firstChar = word[0].lower()
-        self.root = self._insert_name(self.root, firstChar, song)
-    
-    # Funciones para devolver una lista en fprma descendete o ascendente
+        if not self.root.avlName.root:
+            self.root.avlName.root = Node(firstChar)
+        self.root.avlName.root = self._insert_name(self.root.avlName.root, firstChar, song)
+
     def _in_order_ascending(self, root, result):
         if not root:
             return
@@ -134,14 +127,6 @@ class AVLTree:
         result = LinkedList()
         self._in_order_descending(self.root, result)
         return result
-    
-
-
-    #Función para retornar la lista de un año en especifico
-    def allSongsName(self):
-        result = LinkedList()
-        self._allSongsName(self.root, result)
-        return result
 
     def _allSongsName(self, root, result):
         if not root:
@@ -150,6 +135,11 @@ class AVLTree:
         for song in root.list_songs:
             result.add(song)
         self._allSongsName(root.right, result)
+
+    def allSongsName(self):
+        result = LinkedList()
+        self._allSongsName(self.root, result)
+        return result
 
     def _find(self, root, year):
         if not root:
