@@ -13,4 +13,5 @@ urlpatterns = [
     path('eliminar_id/', views.eliminar_id, name='eliminar_id'),
     path('next_song/', views.next_song, name='next_song'),
     path('prev_song/', views.prev_song, name='prev_song'),
+    path('play_btn/', views.play_song, name='play_song')
 ]
