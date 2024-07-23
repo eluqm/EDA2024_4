@@ -21,7 +21,7 @@ class Queue:
             self.rear.next = new_node
             self.rear = new_node
         self.size += 1
-        if self.size == 1: 
+        if self.size == 1:
             self.current = self.front
 
     def dequeue(self):
@@ -32,9 +32,28 @@ class Queue:
         if self.front is None:
             self.rear = None
         self.size -= 1
-        if self.current == self.front: 
+        if self.current == self.front:
             self.current = self.front
         return data
+
+    def remove(self, item):
+        current = self.front
+        previous = None
+
+        while current:
+            if current.data == item:
+                if previous:
+                    previous.next = current.next
+                else:
+                    self.front = current.next
+                if not current.next:
+                    self.rear = previous
+                self.size -= 1
+                return
+            previous = current
+            current = current.next
+        
+        raise ValueError("Item not found in queue")
 
     def peek(self):
         if self.is_empty():
@@ -43,16 +62,18 @@ class Queue:
 
     def __len__(self):
         return self.size
+
     def __iter__(self):
         self.iter_node = self.front
         return self
+
     def __next__(self):
         if self.iter_node is None:
             raise StopIteration
         data = self.iter_node.data
         self.iter_node = self.iter_node.next
         return data
-    
+
     def get_current(self):
         if self.current is None:
             raise IndexError("No current song")
@@ -63,7 +84,7 @@ class Queue:
             raise IndexError("No next song")
         self.current = self.current.next
         return self.current.data
-    
+
     def prev_song(self):
         if self.current is None or self.current == self.front:
             raise IndexError("No previous song")
@@ -72,45 +93,27 @@ class Queue:
             current = current.next
         self.current = current
         return self.current.data
-    
-    def change_position(self, current_pos, new_pos):
-        if current_pos < 0 or new_pos < 0 or current_pos >= self.size or new_pos >= self.size:
-            raise IndexError("Position out of bounds")
 
+    def clear(self):
+        self.front = None
+        self.rear = None
+        self.size = 0
+        self.current = None
+
+    def contains(self, item):
+        current = self.front
+        while current:
+            if current.data == item:
+                return True
+            current = current.next
+        return False
+        
+    def peek_front(self):
         if self.is_empty():
-            return
-
-        if current_pos == new_pos:
-            return
-
-        prev_node = None
-        node_to_move = self.front
-        for _ in range(current_pos):
-            prev_node = node_to_move
-            node_to_move = node_to_move.next
-
-        # Remove the node from the queue
-        if prev_node:
-            prev_node.next = node_to_move.next
-        else:
-            self.front = node_to_move.next
-        
-        if node_to_move == self.rear:
-            self.rear = prev_node
-        
-        # Insert the node at the new position
-        if new_pos == 0:
-            node_to_move.next = self.front
-            self.front = node_to_move
-        else:
-            prev_node = None
-            insert_after_node = self.front
-            for _ in range(new_pos - 1):
-                prev_node = insert_after_node
-                insert_after_node = insert_after_node.next
-            
-            node_to_move.next = insert_after_node.next
-            insert_after_node.next = node_to_move
-            
-            if node_to_move.next is None:
-                self.rear = node_to_move
+            raise IndexError("Peek from empty queue")
+        return self.front.data
+    
+    def peek_rear(self):
+        if self.is_empty():
+            raise IndexError("Peek from empty queue")
+        return self.rear.data
