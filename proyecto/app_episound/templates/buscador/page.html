@@ -13,22 +13,30 @@
     <div class="mx-auto space-y-4 my-10 max-w-4xl w-full overflow-y-auto space-y- pr-4 pb-4 flex flex-col" style="height: calc(4 * 8rem + 4 * 1rem);">
       {% if canciones %}
         {% for cancion in canciones %}
-        <div class="flex flex-row">
-          <div class="flex items-center justify-between w-full border-2  border-white p-4 bg-black text-white">
+        <form method="POST" action="{% url 'guardar_idBusc' %}" class="flex flex-row">
+          {% csrf_token %}
+          <input type="hidden" name="cancion_id" value="{{ cancion.id }}">
+          <div class="flex items-center justify-between w-full border-2 border-white p-4 bg-black text-white">
             <div class="flex items-center space-x-4">
               <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
                 🎵
               </div>
               <div class="flex flex-col">
-                <span class="font-bold tesxt-white">{{ cancion.track_name }}</span>
+                <span class="font-bold text-white">{{ cancion.track_name }}</span>
                 <span class="text-gray-400">{{ cancion.artist_name }}</span>
               </div>
             </div>
             <div class="flex items-center space-x-4">
               <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+              <span class="font-bold text-white">{{ cancion.id |add:1 }}</span>
             </div>
           </div>
-        </div>
+          <button type="submit" class="flex m-5 text-4xl text-center hover:text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="hover:text-fuchsia-800 size-8">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>          
+          </button>
+        </form>
         {% endfor %}
       {% else %}
         <div class="text-white text-center">
