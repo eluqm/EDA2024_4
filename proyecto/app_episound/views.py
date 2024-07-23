@@ -66,6 +66,25 @@ def guardar_id(request):
 
     return redirect('index')
 
+def guardar_idBusc(request):
+    if request.method == 'POST':
+        cancion_id = request.POST.get('cancion_id')
+        try:
+            cancion_id = int(cancion_id)
+            cancion_select = global_canciones.get(cancion_id)
+            if not misCanciones.contains(cancion_select):
+                misCanciones.add(cancion_select)
+                colaReproducción.enqueue(cancion_select)
+                print(f"ID de la canción recibida: {cancion_id}")
+                print(f"Detalles de la canción seleccionada: {cancion_select}")
+            else:
+                print("La canción ya está en la lista.")
+                
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    return redirect('buscar')
+
 def eliminar_id(request):
     if request.method == 'POST':
         cancion_id = request.POST.get('cancion_id')
