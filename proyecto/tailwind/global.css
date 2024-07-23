@@ -46,6 +46,6 @@ body {
   border-bottom: 2px solid #ad5389;
 }
 
-a:hover{
-  color: #ad5389;
+a:hover {
+  color: #ad5389; /* Cambia el color del texto al pasar el cursor */
 }
