@@ -18,8 +18,20 @@
       <!-- Agregar un contenedor con desplazamiento basado en la altura de 5 divs -->
       <div class="max-w-3xl w-full overflow-y-auto space-y-4" style="height: calc(5 * 6rem + 5 * 1rem);">
         {% for cancion in canciones %}
-        <div class="max-w-2xl w-full border-2 border-red-400 m-4 p-6 font-bold">
-          <p> {{cancion.artist_name}} </p>
+        <div class="flex items-center justify-between w-full border-2 border-white p-4 bg-black text-white">
+          <div class="flex items-center space-x-4">
+            <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
+              🎵
+            </div>
+            <div class="flex flex-col">
+              <span class="font-bold text-white">{{ cancion.track_name }}</span>
+              <span class="text-gray-400">{{ cancion.artist_name }}</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+            <span class="font-bold text-white">{{ cancion.id |add:1 }}</span>
+          </div>
         </div>
         {% endfor %}
       </div>

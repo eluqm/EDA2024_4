@@ -6,8 +6,7 @@ from .EstructurasDeDatos.LinkedList import LinkedList
 from .EstructurasDeDatos.Queue import Queue
 from .EstructurasDeDatos.Trie import Trie
 
-misCanciones = HashMap()
-testeo = LinkedList()
+misCanciones = LinkedList()
 reproducción = Queue()
 global_canciones = datos()
 
@@ -16,7 +15,7 @@ def index(request):
 
 def miMusica(request):
   context = {
-    'canciones': testeo
+    'canciones': misCanciones
   }
   return render(request, "miMusica/page.html", context)
 
@@ -46,7 +45,7 @@ def guardar_id(request):
         try:
             cancion_id = int(cancion_id)
             cancion_select = global_canciones.get(cancion_id)
-            testeo.add(cancion_select)
+            misCanciones.add(cancion_select)
             print(f"ID de la canción recibida: {cancion_id}")
             print(f"Detalles de la canción seleccionada: {cancion_select}")
         except ValueError as e:
