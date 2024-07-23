@@ -8,10 +8,12 @@ from .EstructurasDeDatos.HashMap import HashMap
 from .EstructurasDeDatos.LinkedList import LinkedList
 from .EstructurasDeDatos.Queue import Queue
 from .EstructurasDeDatos.Trie import Trie
+from .EstructurasDeDatos.B_tree import BTree
 
 misCanciones = LinkedList()
 colaReproducción = Queue()
 global_canciones = datos()
+songsBtree = BTree(3)
 
 trieArbol = Trie()
 for cancion in canciones:
@@ -173,3 +175,27 @@ def play_song(request):
     except IndexError:
 
         return HttpResponseBadRequest("No hay canción actual para reproducir.")
+
+def TimeDuration(request):
+    context = {
+        'canciones': colaReproducción
+    }
+    return render(request, "miMusica/page.html", context)
+
+#Esto ya es el ordenamiento
+
+def songs_ascend_btree(request):
+    songsBtree.clear()
+
+    # Itera sobre las canciones en misCanciones e inserta en el BTree
+    for cancion in misCanciones:
+        songsBtree.insert(cancion.track_duration_ms, cancion)
+
+    # Obtén las canciones en orden ascendente
+    canciones_ordenadas = songsBtree.ascending()
+
+    context = {
+        'canciones': canciones_ordenadas
+    }
+
+    return render(request, "miMusica/page.html", context)
