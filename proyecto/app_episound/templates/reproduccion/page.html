@@ -69,8 +69,9 @@
         </div>
         <div class="w-full p-2 flex justify-center mt-4 border-2 border-white">
           <div class="flex space-x-4 gap-10 font-bold">
-            <button id="prev-song-btn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Anterior</button>
-            <button id="next-song-btn" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Siguiente</button>
+            <button id="prev-song-btn" class="text-white px-4 py-2 rounded-md ">Anterior</button>
+            <button id="play-btn" class="text-white px-4 py-2 rounded-md ">Play</button>
+            <button id="next-song-btn" class="text-white px-4 py-2 rounded-md ">Siguiente</button>
           </div>
         </div>
       </div>
@@ -102,6 +103,11 @@
     document.getElementById('next-song-btn').addEventListener('click', function(event) {
       event.preventDefault();
       window.location.href = "{% url 'next_song' %}";
+    });
+
+    document.getElementById('play-btn').addEventListener('click', function(event) {
+      event.preventDefault();
+      window.location.href = "{% url 'play_song' %}";
     });
   </script>
 {% endblock %}
