@@ -1,3 +1,5 @@
+from .HashMap import HashMap
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -9,6 +11,7 @@ class Queue:
         self.rear = None
         self.size = 0
         self.current = None
+        self.index_map = HashMap()
 
     def is_empty(self):
         return self.size == 0
@@ -117,3 +120,5 @@ class Queue:
         if self.is_empty():
             raise IndexError("Peek from empty queue")
         return self.rear.data
+    
+    

@@ -76,5 +76,11 @@ def main():
     assert len(queue) == 2, "Error: Tamaño de la cola no es 2 después de eliminar Song B"
     assert not queue.contains(song2), "Error: La canción eliminada aún está en la cola"
 
+    print('---------PRUEBAS DE CAMBIO DE POSICIÓN---------');
+
+    
+
+
+
 if __name__ == "__main__":
     main()
