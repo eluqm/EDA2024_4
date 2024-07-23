@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -11,7 +12,6 @@ from .EstructurasDeDatos.Trie import Trie
 misCanciones = LinkedList()
 colaReproducción = Queue()
 global_canciones = datos()
-
 
 trieArbol = Trie()
 for cancion in canciones:
@@ -135,9 +135,10 @@ def next_song(request):
         }
         return render(request, "reproduccion/page.html", context)
     except IndexError:
+        ultima_cancion = colaReproducción.peek_rear()
         context = {
             'canciones': colaReproducción,
-            'current_song': None,
+            'current_song': ultima_cancion,
             'show_alert': True,
             'alert_message': 'No hay más canciones para avanzar.'
         }
@@ -153,9 +154,10 @@ def prev_song(request):
         }
         return render(request, "reproduccion/page.html", context)
     except IndexError:
+        primera_cancion = colaReproducción.peek_front()
         context = {
             'canciones': colaReproducción,
-            'current_song': None,
+            'current_song': primera_cancion,
             'show_alert': True,
             'alert_message': 'No hay canciones anteriores.'
         }
@@ -171,8 +173,3 @@ def play_song(request):
     except IndexError:
 
         return HttpResponseBadRequest("No hay canción actual para reproducir.")
-
-
-
-
-#######VISTAS DE ORDENAMIENTO ########
