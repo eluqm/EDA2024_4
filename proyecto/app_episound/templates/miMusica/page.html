@@ -10,11 +10,7 @@
     </div>
     <div class="my-4">
       <nav class="w-full flex flex-row gap-x-12 px-4 font-bold">
-        {% if request.session.visited_duration %}
-          <button id="ascendenteButton"> Ascendente </button>
-        {% else %}
-          <button disabled> Ascendente </button>
-        {% endif %}
+        <button id="ascendenteButton"> Ascendente </button>
         <button> Descendente </button>
       </nav>
     </div>
