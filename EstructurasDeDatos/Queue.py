@@ -1,9 +1,8 @@
-from .HashMap import HashMap
-
 class Node:
-    def __init__(self, data):
+    def __init__(self, data, position=None):
         self.data = data
         self.next = None
+        self.position = position  # Añadido para mantener la posición del nodo
 
 class Queue:
     def __init__(self):
@@ -11,13 +10,12 @@ class Queue:
         self.rear = None
         self.size = 0
         self.current = None
-        self.index_map = HashMap()
 
     def is_empty(self):
         return self.size == 0
 
     def enqueue(self, data):
-        new_node = Node(data)
+        new_node = Node(data, self.size)  # Establecemos la posición del nuevo nodo
         if self.rear is None:
             self.front = self.rear = new_node
         else:
@@ -52,6 +50,7 @@ class Queue:
                 if not current.next:
                     self.rear = previous
                 self.size -= 1
+                self._update_positions()  # Actualizamos las posiciones después de la eliminación
                 return
             previous = current
             current = current.next
@@ -120,5 +119,19 @@ class Queue:
         if self.is_empty():
             raise IndexError("Peek from empty queue")
         return self.rear.data
-    
-    
+
+    def find_position(self, item):
+        current = self.front
+        while current:
+            if current.data == item:
+                return current.position
+            current = current.next
+        raise ValueError("Item not found in queue")
+
+    def _update_positions(self):
+        current = self.front
+        position = 0
+        while current:
+            current.position = position
+            current = current.next
+            position += 1
