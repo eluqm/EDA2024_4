@@ -54,4 +54,4 @@ class Cancion:
 
     # Método especial para representación en cadena
     def __str__(self):
-        return f"Cancion{{artistName='{self.get_artist_name()}', trackName='{self.get_track_name()}'}}" 
+        return f"Cancion{{artistName='{self.get_artist_name()}', trackName='{self.get_track_name()} , track_year='{self.get_track_year()} , track_duration_ms='{self.get_track_duration_ms()} }}" 
