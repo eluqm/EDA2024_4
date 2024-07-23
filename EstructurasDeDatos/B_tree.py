@@ -79,3 +79,22 @@ class BTree:
         level += 1
         for child in node.children:
             self.print_tree(child, level)
+            
+    def in_orden(self, node=None):
+        if node is None:
+            node = self.root
+        result = []
+        i = 0
+        while i < len(node.keys):
+            if not node.leaf:
+                result.extend(self.in_orden(node.children[i]))
+            result.extend(node.song_lists[i].to_list())
+            i += 1
+        if not node.leaf:
+            result.extend(self.in_orden(node.children[i]))
+        return result
+
+    def ascending(self):
+        songs = self.in_orden()
+        for song in songs:
+            print(song)
