@@ -7,7 +7,7 @@ from .EstructurasDeDatos.Queue import Queue
 from .EstructurasDeDatos.Trie import Trie
 
 misCanciones = LinkedList()
-reproducción = Queue()
+colaReproducción = Queue()
 global_canciones = datos()
 
 def index(request):
@@ -29,10 +29,11 @@ def mostrar_cancion(request):
     return render(request, "inicio/page.html", context)
 
 def reproducir(request):
+    for cancion in misCanciones:
+       colaReproducción.enqueue(cancion)
+       
     context = {
-        'canciones': global_canciones,
-        'current_song': current_song,
-        'next_song': next_song
+       'canciones': colaReproducción
     }
     return render(request, "reproduccion/page.html", context)
 
