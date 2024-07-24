@@ -198,3 +198,19 @@ def songs_ascend_btree(request):
     }
 
     return render(request, "miMusica/page.html", context)
+
+def songs_descend_btree(request):
+    songsBtree.clear()
+
+    # Itera sobre las canciones en misCanciones e inserta en el BTree
+    for cancion in misCanciones:
+        songsBtree.insert(cancion.track_duration_ms, cancion)
+
+    # Obtén las canciones en orden ascendente
+    canciones_ordenadas = songsBtree.descending()
+
+    context = {
+        'canciones': canciones_ordenadas
+    }
+
+    return render(request, "miMusica/page.html", context)
