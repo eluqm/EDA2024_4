@@ -12,7 +12,7 @@ from .EstructurasDeDatos.AVLTree import AVLTree
 
 misCanciones = LinkedList()
 colaReproducción = Queue()
-global_canciones = datos()
+global_canciones = LinkedList()
 songsBtree = BTree(3)
 songsAVlAño = AVLTree()
 songAVlPopularidad = AVLTree()
@@ -21,8 +21,13 @@ trieArbol = Trie()
 for cancion in canciones:
     trieArbol.insert(cancion.get_track_name(), cancion) 
 
-def index(request):
-    return render(request, "inicio/page.html") 
+def home(request):
+    nroCanciones = None
+    if request.method == 'POST':
+        nroCanciones = request.POST.get('numero_canciones')
+        global_canciones = datos(int(nroCanciones))
+    
+    return render(request, "inicio/page.html", {'canciones': global_canciones})
 
 def miMusica(request):
     context = {
@@ -68,7 +73,7 @@ def guardar_id(request):
         except ValueError as e:
             print(f"Error: {e}")
 
-    return redirect('index')
+    return redirect('nroCanciones')
 
 def guardar_idBusc(request):
     if request.method == 'POST':

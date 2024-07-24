@@ -14,7 +14,8 @@ current_song = {
     'year': '2024'
 }
 
-def datos():
+def datos(numero):
+  canciones = leer_csv("../archive/spotify_data.csv",numero)
   return canciones
 
 next_song = {'track_name': 'Rara Vez', 'artist_name': 'Milo J'}
