@@ -1,9 +1,9 @@
 import sys
+from .EstructurasDeDatos.LinkedList import LinkedList
 sys.path.append("../")
 from leer_csv import leer_csv
 
 # Crear instancias de Cancion
-canciones = leer_csv("../archive/spotify_data.csv",100)
 
 current_song = {
     'track_name': 'You are all that I have',
@@ -13,8 +13,12 @@ current_song = {
     'rank': '1',
     'year': '2024'
 }
+canciones = LinkedList()
 
 def datos():
+  numero = input("Ingresar las canciones: ")
+  numero = int(numero)
+  canciones = leer_csv("../archive/spotify_data.csv", numero)
   return canciones
 
 next_song = {'track_name': 'Rara Vez', 'artist_name': 'Milo J'}
