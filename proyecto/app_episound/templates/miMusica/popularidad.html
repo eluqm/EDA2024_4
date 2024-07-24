@@ -17,7 +17,7 @@
     <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
       <!-- Agregar un contenedor con desplazamiento basado en la altura de 5 divs -->
       <div class="max-w-3xl w-full overflow-y-auto space-y-4" style="height: calc(5 * 6rem + 5 * 1rem);">
-        {% for cancion in canciones %}
+      {% for cancion in canciones %}
         <form method="POST" action="{% url 'eliminar_id' %}" class="flex flex-row">
           {% csrf_token %}
           <input type="hidden" name="cancion_id" value="{{ cancion.id }}">

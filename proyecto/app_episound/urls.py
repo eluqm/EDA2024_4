@@ -6,7 +6,7 @@ from .views import *
 
 urlpatterns = [
     path('', views.inicio, name="inicio"),
-    path('mostrarCancion', views.mostrar_cancion, name="index"),
+    path('home', views.home, name="nroCanciones"),
     path('miMusica', views.miMusica, name="miMusica"),
     path('buscador', views.buscar, name="buscar"),
     path('reproduccion', views.reproducir, name="reproducir"),
