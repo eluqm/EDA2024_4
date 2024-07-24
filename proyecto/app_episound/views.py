@@ -179,7 +179,7 @@ def TimeDuration(request):
     context = {
         'canciones': colaReproducción
     }
-    return render(request, "miMusica/page.html", context)
+    return render(request, "miMusica/duracion.html", context)
 
 #Esto ya es el ordenamiento
 
@@ -197,4 +197,23 @@ def songs_ascend_btree(request):
         'canciones': canciones_ordenadas
     }
 
-    return render(request, "miMusica/page.html", context)
+    return render(request, "miMusica/duracion.html", context)
+
+def songs_descend_btree(request):
+    songsBtree.clear()
+
+    # Itera sobre las canciones en misCanciones e inserta en el BTree
+    for cancion in misCanciones:
+        songsBtree.insert(cancion.track_duration_ms, cancion)
+
+    # Obtén las canciones en orden ascendente
+    canciones_ordenadas = songsBtree.descending()
+
+    context = {
+        'canciones': canciones_ordenadas
+    }
+
+    return render(request, "miMusica/duracion.html", context)
+
+
+#Aca le pones tus funciones views con la logica y se la pasas al contexto
