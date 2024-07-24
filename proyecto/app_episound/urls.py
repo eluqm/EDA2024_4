@@ -17,6 +17,7 @@ urlpatterns = [
     path('play_btn/', views.play_song, name='play_song'),
     path('miMusica/TiempodeDuracion/', views.TimeDuration, name="songs_duration"),
     path('miMusica/TiempodeDuracion/songs_ascending_Btree/', views.songs_ascend_btree , name='songs_ascending_Btree'),
-    path('miMusica/TiempodeDuracion/songs_descending_Btree/', views.songs_descend_btree , name='songs_descending_Btree')
+    path('miMusica/TiempodeDuracion/songs_descending_Btree/', views.songs_descend_btree , name='songs_descending_Btree'),
+    path('random/', views.random, name ='random'),
     #pones tus urls aca para año y popularidad
 ]

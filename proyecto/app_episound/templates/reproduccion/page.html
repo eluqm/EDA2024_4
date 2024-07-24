@@ -3,6 +3,7 @@
   <div class="flex flex-row space-x-4 bg-transparent">
     <!-- Sección de la izquierda -->
     <div class="flex flex-col w-3/5 bg-black">
+      <button id="random-btn" class="text-white px-4 py-2 rounded-md ">Random</button>
       <!-- Información de la canción actual -->
       <div class="pl-4 py-4 bg-black rounded-lg text-white">
         <div class="w-full">
@@ -143,6 +144,14 @@
         return; // No navega si el modal está visible
       }
       window.open("{% url 'play_song' %}", '_blank');
+    });
+
+    document.getElementById('random-btn').addEventListener('click', function(event) {
+      event.preventDefault();
+      if (!document.getElementById('alert-modal').classList.contains('hidden')) {
+        return; // No navega si el modal está visible
+      }
+      window.open("{% url 'random' %}");
     });
 
     document.addEventListener("DOMContentLoaded", function() {

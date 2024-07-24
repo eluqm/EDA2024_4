@@ -215,5 +215,11 @@ def songs_descend_btree(request):
 
     return render(request, "miMusica/duracion.html", context)
 
+def random(request):
+    colaReproducción.random()
+    context = {
+        'canciones': colaReproducción,
+    }
+    return render(request, "reproduccion/page.html", context)
 
 #Aca le pones tus funciones views con la logica y se la pasas al contexto
