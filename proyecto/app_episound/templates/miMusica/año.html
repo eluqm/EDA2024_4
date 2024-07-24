@@ -84,5 +84,9 @@
     document.getElementById('añoButton').addEventListener('click', function() {
       window.location.href = "{% url 'songs_año' %}";
     });
+
+    document.getElementById('duracionButton').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_duration' %}";
+    });
   </script>
 {% endblock content %}
