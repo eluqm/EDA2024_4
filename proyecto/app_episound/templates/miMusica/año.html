@@ -52,8 +52,7 @@
 
   <div id="emergente" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-8 rounded-md max-w-4xl w-full">
-      <h2 class="text-xl font-bold mb-4">Título del Modal</h2>
-      <p class="mb-4">Contenido del modal va aquí...</p>
+    <div id="columnchart_values" style="width: 200px; height: 200px;"></div>
       <button id="cerrarVentana" class="bg-red-500 text-white px-4 py-2 rounded-md">
         Cerrar
       </button>
@@ -89,4 +88,53 @@
       window.location.href = "{% url 'songs_duration' %}";
     });
   </script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="js/myCharts.js"></script>
+
+  <script>
+    google.charts.load("current", { packages : [ 'corechart' ]});
+    
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        
+        //Aquí se representa el nombre de columna, el dato y el color
+        var data = google.visualization.arrayToDataTable([ 
+                    [ "Element", "Euros", { role : "style"} ], 
+                    [ "2014", 12820756, "pink" ], 
+                    [ "2015", 13171807, "silver" ],
+                    [ "2016", 13259769, "gold" ],
+                    [ "2017", 14063444, "blue" ],
+                    [ "2018", 14945692, "green" ],]);
+    
+        var view = new google.visualization.DataView(data);
+        view.setColumns(
+            [ 0, 1, {
+                calc : "stringify",
+                sourceColumn : 1,
+                type : "string",
+                role : "annotation"
+            }, 2 ]);
+    
+        //Aquí se añade el título y tamaño del gráfico
+        var options = {
+            title : "Gastos internos en I+D en Euros.",
+            width : 900,
+            height : 500,
+            bar : { groupWidth : "95%" },
+            legend : { position : "none" },
+        };
+        
+        var chart = new google.visualization.LineChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+    }
+    
+    function getValueAt(column, dataTable, row) {
+        return dataTable.getFormattedValue(row, column);
+    }
+  </script>
+
+
+
 {% endblock content %}
+
