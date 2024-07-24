@@ -19,9 +19,15 @@ urlpatterns = [
     path('miMusica/TiempodeDuracion/', views.TimeDurationBtree, name="songs_duration"),
     path('miMusica/TiempodeDuracion/songs_ascending_Btree/', views.songs_ascend_btree , name='songs_ascending_Btree'),
     path('miMusica/TiempodeDuracion/songs_descending_Btree/', views.songs_descend_btree , name='songs_descending_Btree'),
-    path('miMusica/Año/', views.TimeDurationAvl, name="songs_año"),
-    path('miMusica/Año/songs_ascend_avlAños/', views.songs_ascend_avlAños, name='songs_ascending_Avl'),
-    path('miMusica/Año/songs_descending_avlAños/', views.songs_descend_avlAños, name='songs_descending_Avl'),
+    path('miMusica/Año/', views.TimeAñoAvl, name="songs_año"),
+    path('miMusica/Año/songs_ascend_avlAños/', views.songs_ascend_avlAños, name='songs_ascending_AvlAño'),
+    path('miMusica/Año/songs_descending_avlAños/', views.songs_descend_avlAños, name='songs_descending_AvlAño'),
+    path('miMusica/Popularidad/', views.TimePopularidadAvl, name="songs_popularidad"),
+    path('miMusica/Popularidad/songs_ascend_avlPopularidad/', views.songs_ascend_avlPopularidad, name='songs_ascending_AvlPopularidad'),
+    path('miMusica/Popularidad/songs_descending_avlPopularidad/', views.songs_descend_avlPopularidad, name='songs_descending_AvlPopularidad'),
+    
+    
+    
     path('random/', views.random, name='random'),
     # Add more paths as needed
 ]

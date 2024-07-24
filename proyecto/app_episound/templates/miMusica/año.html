@@ -70,19 +70,19 @@
     });
 
     document.getElementById('ascendenteButtonAvl').addEventListener('click', function() {
-      window.location.href = "{% url 'songs_ascending_Avl' %}";
+      window.location.href = "{% url 'songs_ascending_AvlAño' %}";
     });
 
     document.getElementById('descendenteButtonAvl').addEventListener('click', function() {
-      window.location.href = "{% url 'songs_descending_Avl' %}";
+      window.location.href = "{% url 'songs_descending_AvlAño' %}";
     });
 
     document.getElementById('añoButton').addEventListener('click', function() {
       window.location.href = "{% url 'songs_año' %}";
     });
 
-    document.getElementById('añoButton').addEventListener('click', function() {
-      window.location.href = "{% url 'songs_año' %}";
+    document.getElementById('popularidadButton').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_popularidad' %}";
     });
 
     document.getElementById('duracionButton').addEventListener('click', function() {
