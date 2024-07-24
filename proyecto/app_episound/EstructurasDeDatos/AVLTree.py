@@ -60,6 +60,13 @@ class AVLTree:
         return node
     
     def _insert_value(self, root, valueNumeric, song):
+        # Convertir valueNumeric a float si es una cadena
+        if isinstance(valueNumeric, str):
+            try:
+                valueNumeric = float(valueNumeric)
+            except ValueError:
+                raise ValueError("El valor proporcionado no se puede convertir a float.")
+        
         if not root:
             new_node = Node(valueNumeric)
             new_node.avlName.root = new_node.avlName._insert_name(new_node.avlName.root, song.get_track_name(), song)
@@ -162,3 +169,17 @@ class AVLTree:
             return node.avlName.allSongsName()
         else:
             return LinkedList()
+        
+    # FUNCION PARA LIMPIAR EL ÁRBOL
+    def _clear(self, node):
+        if not node:
+            return
+        self._clear(node.left)
+        self._clear(node.right)
+        # Optionally clear the list of songs if needed
+        node.list_songs = LinkedList()
+        node.avlName = AVLTree()  # Reinitialize the AVLTree if required
+
+    def clear(self):
+        self._clear(self.root)
+        self.root = None
