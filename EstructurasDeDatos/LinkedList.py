@@ -94,3 +94,22 @@ class LinkedList:
             result.append(current.data)
             current = current.next
         return result
+    
+    def swap(self, index1, index2):
+        if index1 < 0 or index1 >= self.size or index2 < 0 or index2 >= self.size:
+            raise IndexError("Índice fuera de rango.")
+        
+        node1 = self.get_node(index1)
+        node2 = self.get_node(index2)
+        
+        # Intercambiar los datos
+        node1.data, node2.data = node2.data, node1.data
+
+    def get_node(self, index):
+        if index < 0 or index >= self.size:
+            raise IndexError("Índice fuera de rango.")
+        
+        current = self.head
+        for _ in range(index):
+            current = current.next
+        return current
