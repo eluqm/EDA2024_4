@@ -139,7 +139,7 @@
       if (!document.getElementById('alert-modal').classList.contains('hidden')) {
         return; // No navega si el modal está visible
       }
-      window.location.href = "{% url 'play_song' %}";
+      window.open("{% url 'play_song' %}", '_blank');
     });
 
   </script>
