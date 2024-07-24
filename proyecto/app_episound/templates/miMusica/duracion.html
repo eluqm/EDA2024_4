@@ -4,7 +4,7 @@
     <div class="flex p-4">
       <nav class="w-full flex flex-row gap-x-64 py-2 border-b-2 border-b-white px-20 font-bold">
         <button> Popularidad </button>
-        <button> Año </button>
+        <button id="añoButton"> Año </button>
         <button id="duracionButton"> Tiempo de Duracion </button>
       </nav>
     </div>
@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="flex items-center space-x-4">
-              <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+              <span id="duration-{{ forloop.counter }}" class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
               <span class="font-bold text-white">{{ cancion.id |add:1 }}</span>
               <button type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="ml-2 size-8 text-red-600 bg-white rounded-md hover:text-white hover:bg-red-600">
@@ -42,7 +42,7 @@
             </div>
           </div>
         </form>
-        {% endfor %}
+      {% endfor %}
       </div>
       <button id="abrirVentana" class="absolute right-0 mx-32 top-1/2 transform -translate-y-1/2 bg-fuchsia-800 px-4 py-2 rounded-md">
         Abrir
@@ -61,6 +61,35 @@
   </div>
   
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Formatear la duración de la canción actual
+      const currentDurationElement = document.getElementById('info');
+      if (currentDurationElement) {
+        formatDuration(currentDurationElement);
+      }
+
+      // Formatear la duración de todas las canciones en la lista
+      {% for cancion in canciones %}
+        const durationElement{{ forloop.counter }} = document.getElementById('duration-{{ forloop.counter }}');
+        if (durationElement{{ forloop.counter }}) {
+          formatDuration(durationElement{{ forloop.counter }});
+        }
+      {% endfor %}
+    
+    });
+    
+    function formatDuration(element) {
+      const ms = parseInt(element.textContent.match(/\d+/)[0], 10);
+
+      const minutes = Math.floor(ms / 60000);
+      const seconds = Math.floor((ms % 60000) / 1000);
+
+      // Formatear el texto de duración
+      const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      element.textContent = `Duración: ${formattedDuration}`;
+    }
+    
     document.getElementById('abrirVentana').addEventListener('click', function() {
       document.getElementById('emergente').classList.remove('hidden');
     });
@@ -79,6 +108,10 @@
 
     document.getElementById('duracionButton').addEventListener('click', function() {
       window.location.href = "{% url 'songs_duration' %}";
+    });
+
+    document.getElementById('añoButton').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_año' %}";
     });
   </script>
 {% endblock content %}
