@@ -143,7 +143,7 @@
       if (!document.getElementById('alert-modal').classList.contains('hidden')) {
         return; // No navega si el modal está visible
       }
-      window.open("{% url 'play_song' %}", '_blank');
+      window.location.href = "{% url 'play_song' %}", '_blank';
     });
 
     document.getElementById('random-btn').addEventListener('click', function(event) {
@@ -151,7 +151,7 @@
       if (!document.getElementById('alert-modal').classList.contains('hidden')) {
         return; // No navega si el modal está visible
       }
-      window.open("{% url 'random' %}");
+      window.location.href = "{% url 'random' %}";
     });
 
     document.addEventListener("DOMContentLoaded", function() {

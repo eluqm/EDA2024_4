@@ -219,6 +219,7 @@ def random(request):
     colaReproducción.random()
     context = {
         'canciones': colaReproducción,
+        'current_song': colaReproducción.peek()  # Mostrar la canción actual
     }
     return render(request, "reproduccion/page.html", context)
 
