@@ -8,11 +8,14 @@ from .EstructurasDeDatos.LinkedList import LinkedList
 from .EstructurasDeDatos.Queue import Queue
 from .EstructurasDeDatos.Trie import Trie
 from .EstructurasDeDatos.B_tree import BTree
+from .EstructurasDeDatos.AVLTree import AVLTree
 
 misCanciones = LinkedList()
 colaReproducción = Queue()
 global_canciones = datos()
 songsBtree = BTree(3)
+songsAVlAño = AVLTree()
+songAVlPopularidad = AVLTree()
 
 trieArbol = Trie()
 for cancion in canciones:
@@ -175,11 +178,17 @@ def play_song(request):
 
         return HttpResponseBadRequest("No hay canción actual para reproducir.")
 
-def TimeDuration(request):
+def TimeDurationBtree(request):
     context = {
         'canciones': colaReproducción
     }
     return render(request, "miMusica/duracion.html", context)
+
+def TimeDurationAvl(request):
+    context = {
+        'canciones': colaReproducción
+    }
+    return render(request, "miMusica/año.html", context)
 
 #Esto ya es el ordenamiento
 
@@ -223,4 +232,42 @@ def random(request):
     }
     return render(request, "reproduccion/page.html", context)
 
-#Aca le pones tus funciones views con la logica y se la pasas al contexto
+def songs_ascend_btree(request):
+    songsBtree.clear()
+    for cancion in misCanciones:
+        songsBtree.insert(cancion.track_duration_ms, cancion)
+    canciones_ordenadas = songsBtree.ascending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/duracion.html", context)
+
+def songs_descend_btree(request):
+    songsBtree.clear()
+    for cancion in misCanciones:
+        songsBtree.insert(cancion.track_duration_ms, cancion)
+    canciones_ordenadas = songsBtree.descending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/duracion.html", context)
+
+def songs_ascend_avlAños(request):
+    songsAVlAño.clear()
+    for cancion in misCanciones:
+        songsAVlAño.insert(cancion.track_year, cancion)
+    canciones_ordenadas = songsAVlAño.ascending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/año.html", context)
+
+def songs_descend_avlAños(request):
+    songsAVlAño.clear()
+    for cancion in misCanciones:
+        songsAVlAño.insert(cancion.track_year, cancion)
+    canciones_ordenadas = songsAVlAño.descending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/año.html", context)
