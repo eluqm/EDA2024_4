@@ -3,7 +3,7 @@
   <div class="w-full p-4 flex justify-center items-center flex-col">
     <div class="flex p-4">
       <nav class="w-full flex flex-row gap-x-64 py-2 border-b-2 border-b-white px-20 font-bold">
-        <button> Popularidad </button>
+        <button id="popularidadButton"> Popularidad </button>
         <button id="añoButton"> Año </button>
         <button id="duracionButton"> Tiempo de Duracion </button>
       </nav>
@@ -112,6 +112,10 @@
 
     document.getElementById('añoButton').addEventListener('click', function() {
       window.location.href = "{% url 'songs_año' %}";
+    });
+
+    document.getElementById('popularidadButton').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_popularidad' %}";
     });
   </script>
 {% endblock content %}
