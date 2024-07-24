@@ -35,13 +35,11 @@
           </nav>
         </div>
         <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 pr-4 pb-4 flex flex-col" style="height: calc(5 * 6rem + 4 * 1rem);">
-          {% for cancion in canciones %}
-          <div class="flex flex-row">
-            <div class="flex items-center justify-between w-full border-2 border-white p-4 bg-black text-white">
+          <ul class="song-list space-y-4" id="songList">
+            {% for cancion in canciones %}
+            <li class="song-item flex flex-row items-center justify-between border-2 border-white p-4 bg-black text-white" draggable="true">
               <div class="flex items-center space-x-4">
-                <div class = "flex w-9 h-9">
-                  <button class="text-black bg-white w-full h-full"> = </button>
-                </div>
+                <button class="text-black bg-white w-9 h-9"> = </button>
                 <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
                   🎵
                 </div>
@@ -53,9 +51,9 @@
               <div class="flex items-center space-x-4">
                 <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
               </div>
-            </div>
-          </div>
-          {% endfor %}
+            </li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
     </div> 
@@ -167,6 +165,59 @@
   
       durationElement.textContent = formattedDuration;
     });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const songList = document.getElementById('songList');
+      let draggedItem = null;
+  
+      songList.addEventListener('dragstart', (event) => {
+          // Ensure the dragged item is the <li> element
+          draggedItem = event.target.closest('.song-item');
+          draggedItem.style.opacity = 0.4;
+      });
+  
+      songList.addEventListener('dragend', (event) => {
+          if (draggedItem) {
+              draggedItem.style.opacity = '';
+          }
+      });
+  
+      songList.addEventListener('dragover', (event) => {
+          event.preventDefault();
+      });
+  
+      songList.addEventListener('dragenter', (event) => {
+          const targetItem = event.target.closest('.song-item');
+          if (targetItem && targetItem !== draggedItem) {
+              targetItem.style.border = '1px solid #aaa';
+          }
+      });
+  
+      songList.addEventListener('dragleave', (event) => {
+          const targetItem = event.target.closest('.song-item');
+          if (targetItem && targetItem !== draggedItem) {
+              targetItem.style.border = '';
+          }
+      });
+  
+      songList.addEventListener('drop', (event) => {
+          event.preventDefault();
+          const targetItem = event.target.closest('.song-item');
+          if (targetItem && targetItem !== draggedItem) {
+              targetItem.style.border = '';
+              const items = Array.from(songList.children);
+              const draggedIndex = items.indexOf(draggedItem);
+              const targetIndex = items.indexOf(targetItem);
+  
+              if (draggedIndex < targetIndex) {
+                  songList.insertBefore(draggedItem, targetItem.nextSibling);
+              } else {
+                  songList.insertBefore(draggedItem, targetItem);
+              }
+          }
+    });
+});
 
+  
   </script>
 {% endblock %}
