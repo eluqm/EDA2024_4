@@ -78,15 +78,15 @@
       <!-- Información adicional de la canción -->
       <div class="w-full border-t-2 border-t-white mt-4 my-4">
         <div class="mx-4 mt-4 space-y-4">
-          <p class="text-primary text-lg font-bold mt-2">Información sobre la canción:</p>
+          <p class="text-primary text-2xl font-bold mt-2">Información sobre la canción:</p>
           <div class="mx-4 font-bold text-base">
-            {{ current_song.track_duration_ms }}
+            <h1 class="text-xl">Tiempo de Duración: {{ current_song.track_duration_ms }} </h1>
           </div>
           <div class="mx-4 font-bold text-base">
-            {{ current_song.track_popularity }}
+            <h1 class="text-xl">Nivel de Popularidad: {{ current_song.track_popularity }} </h1>
           </div>
           <div class="mx-4 font-bold text-base">
-            {{ current_song.track_year }}
+            <h1 class="text-xl">Año de lanzamiento: {{ current_song.track_year }} </h1>
           </div>
         </div>
       </div>
