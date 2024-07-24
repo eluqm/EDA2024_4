@@ -4,14 +4,23 @@
     <div class="flex p-4">
       <nav class="w-full flex flex-row gap-x-64 py-2 border-b-2 border-b-white px-20 font-bold">
         <button> Popularidad </button>
+<<<<<<< HEAD
         <button id="añoButton"> Año </button>
+=======
+        <button id="añoButton"> > Año </button>
+>>>>>>> 094ed1f1dbca0878e603d74cad307d0a2168eeaf
         <button id="duracionButton"> Tiempo de Duracion </button>
       </nav>
     </div>
     <div class="my-4">
       <nav class="w-full flex flex-row gap-x-12 px-4 font-bold">
+<<<<<<< HEAD
         <button id="ascendenteButtonAvl"> Ascendente </button>
         <button id="descendenteButtonAvl"> Descendente </button>
+=======
+        <button id="ascendenteButtonAño"> Ascendente </button>
+        <button id="descendenteButtonAño"> Descendente </button>
+>>>>>>> 094ed1f1dbca0878e603d74cad307d0a2168eeaf
       </nav>
     </div>
     <div class="max-w-3xl my-8 w-full flex items-center justify-center flex-col">
@@ -69,6 +78,7 @@
       document.getElementById('emergente').classList.add('hidden');
     });
 
+<<<<<<< HEAD
     document.getElementById('ascendenteButtonAvl').addEventListener('click', function() {
       window.location.href = "{% url 'songs_ascending_Avl' %}";
     });
@@ -79,10 +89,18 @@
 
     document.getElementById('añoButton').addEventListener('click', function() {
       window.location.href = "{% url 'songs_año' %}";
+=======
+    document.getElementById('ascendenteButtonAño').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_ascending_avlAños' %}";
     });
 
-    document.getElementById('duracionButton').addEventListener('click', function() {
-      window.location.href = "{% url 'songs_duration' %}";
+    document.getElementById('descendenteButtonAño').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_descending_avlAños' %}";
+>>>>>>> 094ed1f1dbca0878e603d74cad307d0a2168eeaf
+    });
+
+    document.getElementById('añoButton').addEventListener('click', function() {
+      window.location.href = "{% url 'songs_año' %}";
     });
   </script>
 {% endblock content %}
