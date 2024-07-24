@@ -1,5 +1,5 @@
 import random
-
+from .LinkedList import LinkedList
 class Node:
     def __init__(self, data, position=None):
         self.data = data
@@ -176,18 +176,25 @@ class Queue:
     def random(self):
         if self.is_empty():
             return
-        lista_datos = []
+
+        # Convertir la cola a una LinkedList
+        lista_datos = LinkedList()
         actual = self.front
         while actual:
-            lista_datos.append(actual.data)
+            lista_datos.add(actual.data)
             actual = actual.next
 
+        # Barajar usando el algoritmo de Fisher-Yates
         n = len(lista_datos)
         for i in range(n - 1, 0, -1):
             j = random.randint(0, i)
-            lista_datos[i], lista_datos[j] = lista_datos[j], lista_datos[i]
+            lista_datos.swap(i, j)
 
+        # Vaciar la cola
         self.clear()
 
-        for dato in lista_datos:
-            self.enqueue(dato)
+        # Rellenar la cola con los datos barajados
+        current = lista_datos.head
+        while current:
+            self.enqueue(current.data)
+            current = current.next
