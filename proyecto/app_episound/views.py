@@ -184,7 +184,7 @@ def TimeDurationBtree(request):
     }
     return render(request, "miMusica/duracion.html", context)
 
-def TimeAñoAvl(request):
+def TimeDurationAvl(request):
     context = {
         'canciones': colaReproducción
     }
@@ -281,9 +281,8 @@ def songs_descend_avlAños(request):
 def songs_ascend_avlPopularidad(request):
     songAVlPopularidad.clear()
     for cancion in misCanciones:
-        songAVlPopularidad.insert(cancion.track_year, cancion)
+        songAVlPopularidad.insert(cancion.track_popularity, cancion)
     canciones_ordenadas = songAVlPopularidad.ascending()
-    print(canciones_ordenadas);
     context = {
         'canciones': canciones_ordenadas
     }
@@ -292,7 +291,7 @@ def songs_ascend_avlPopularidad(request):
 def songs_descend_avlPopularidad(request):
     songAVlPopularidad.clear()
     for cancion in misCanciones:
-        songAVlPopularidad.insert(cancion.track_year, cancion)
+        songAVlPopularidad.insert(cancion.track_popularity, cancion)
     canciones_ordenadas = songAVlPopularidad.descending()
     context = {
         'canciones': canciones_ordenadas
