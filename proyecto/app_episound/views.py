@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -47,9 +48,6 @@ def mostrar_cancion(request):
         'canciones': global_canciones
     }
     return render(request, "inicio/page.html", context)
-
-def inicio(request):
-    return render(request, "inicio.html")
 
 def guardar_id(request):
     if request.method == 'POST':
