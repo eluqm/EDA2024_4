@@ -60,7 +60,7 @@
       <!-- Información de la canción actual -->
       <div class="text-primary font-bold p-2">
         <p class="text-2xl">{{ current_song.track_name }}</p>
-        <p class="text-base">{{ current_song.artist_name }}</p>
+        <p class="text-xl">{{ current_song.artist_name }}</p>
       </div>
       <!-- Imagen de la canción y botones -->
       <div class="w-full flex flex-col items-center justify-center p-4">
@@ -78,15 +78,15 @@
       <!-- Información adicional de la canción -->
       <div class="w-full border-t-2 border-t-white mt-4 my-4">
         <div class="mx-4 mt-4 space-y-4">
-          <p class="text-primary text-2xl font-bold mt-2">Información sobre la canción:</p>
+          <p class="text-primary text-xl font-bold mt-2">Información sobre la canción:</p>
           <div class="mx-4 font-bold text-base">
-            <h1 class="text-xl">Tiempo de Duración: {{ current_song.track_duration_ms }} </h1>
+            <h1 id="duration" class="text-xl">Duración: {{ current_song.track_duration_ms }} </h1>
           </div>
           <div class="mx-4 font-bold text-base">
-            <h1 class="text-xl">Nivel de Popularidad: {{ current_song.track_popularity }} </h1>
+            <h1 class="text-xl">Popularidad: {{ current_song.track_popularity }} </h1>
           </div>
           <div class="mx-4 font-bold text-base">
-            <h1 class="text-xl">Año de lanzamiento: {{ current_song.track_year }} </h1>
+            <h1 class="text-xl">Año: {{ current_song.track_year }} </h1>
           </div>
         </div>
       </div>
@@ -140,6 +140,20 @@
         return; // No navega si el modal está visible
       }
       window.open("{% url 'play_song' %}", '_blank');
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var durationElement = document.getElementById('duration');
+  
+      var ms = parseInt(durationElement.textContent.match(/\d+/)[0], 10);
+  
+      var minutes = Math.floor(ms / 60000);
+      var seconds = Math.floor((ms % 60000) / 1000);
+  
+      // Formatear el texto de duración
+      var formattedDuration = `Duración: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+  
+      durationElement.textContent = formattedDuration;
     });
 
   </script>
