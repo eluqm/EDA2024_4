@@ -51,7 +51,7 @@
                 </div>
               </div>
               <div class="flex items-center space-x-4">
-                <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+                <span id="duration-{{ forloop.counter }}" class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
         <div class="mx-4 mt-4 space-y-4">
           <p class="text-primary text-xl font-bold mt-2">Información sobre la canción:</p>
           <div class="mx-4 font-bold text-base">
-            <h1 id="duration" class="text-xl">Duración: {{ current_song.track_duration_ms }} </h1>
+            <h1 id="current-duration-info" class="text-xl">Duración: {{ current_song.track_duration_ms }}</h1>
           </div>
           <div class="mx-4 font-bold text-base">
             <h1 class="text-xl">Popularidad: {{ current_song.track_popularity }} </h1>
@@ -120,8 +120,39 @@
       document.getElementById('close-alert').addEventListener('click', function() {
         alertModal.classList.add('hidden');
       });
+
+      // Formatear la duración de la canción actual
+      const currentDurationElement = document.getElementById('current-duration');
+      if (currentDurationElement) {
+        formatDuration(currentDurationElement);
+      }
+
+      const currentDurationInfoElement = document.getElementById('current-duration-info');
+      if (currentDurationInfoElement) {
+        formatDuration(currentDurationInfoElement);
+      }
+
+      // Formatear la duración de todas las canciones en la lista
+      {% for cancion in canciones %}
+        const durationElement{{ forloop.counter }} = document.getElementById('duration-{{ forloop.counter }}');
+        if (durationElement{{ forloop.counter }}) {
+          formatDuration(durationElement{{ forloop.counter }});
+        }
+      {% endfor %}
     });
 
+    function formatDuration(element) {
+      const ms = parseInt(element.textContent.match(/\d+/)[0], 10);
+
+      const minutes = Math.floor(ms / 60000);
+      const seconds = Math.floor((ms % 60000) / 1000);
+
+      // Formatear el texto de duración
+      const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      element.textContent = `Duración: ${formattedDuration}`;
+    }
+    
     document.getElementById('prev-song-btn').addEventListener('click', function(event) {
       event.preventDefault();
       if (!document.getElementById('alert-modal').classList.contains('hidden')) {
@@ -152,20 +183,6 @@
         return; // No navega si el modal está visible
       }
       window.location.href = "{% url 'random' %}";
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-      var durationElement = document.getElementById('duration');
-  
-      var ms = parseInt(durationElement.textContent.match(/\d+/)[0], 10);
-  
-      var minutes = Math.floor(ms / 60000);
-      var seconds = Math.floor((ms % 60000) / 1000);
-  
-      // Formatear el texto de duración
-      var formattedDuration = `Duración: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-  
-      durationElement.textContent = formattedDuration;
     });
 
   </script>
