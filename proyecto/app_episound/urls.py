@@ -16,5 +16,6 @@ urlpatterns = [
     path('prev_song/', views.prev_song, name='prev_song'),
     path('play_btn/', views.play_song, name='play_song'),
     path('TiempodeDuracion/', views.TimeDuration, name="songs_duration"),
-    path('TiempodeDuracion/songs_ascending_Btree/', views.songs_ascend_btree , name='songs_ascending_Btree')
+    path('TiempodeDuracion/songs_ascending_Btree/', views.songs_ascend_btree , name='songs_ascending_Btree'),
+    path('TiempodeDuracion/songs_descending_Btree/', views.songs_descend_btree , name='songs_descending_Btree')
 ]
