@@ -5,12 +5,12 @@ def main():
     queue = Queue()
 
     # Crear canciones
-    song1 = Cancion(track_name="Song A", track_id="a1", track_popularity=80, track_duration_ms=210000)
-    song2 = Cancion(track_name="Song B", track_id="b1", track_popularity=85, track_duration_ms=220000)
-    song3 = Cancion(track_name="Song C", track_id="c1", track_popularity=75, track_duration_ms=200000)
-    song4 = Cancion(track_name="Song D", track_id="c1", track_popularity=75, track_duration_ms=200000)
-    song5 = Cancion(track_name="Song E", track_id="c1", track_popularity=75, track_duration_ms=200000)
-    song6 = Cancion(track_name="Song F", track_id="c1", track_popularity=75, track_duration_ms=200000)
+    song1 = Cancion(id="1", track_name="Song A", track_id="1", track_popularity=80, track_duration_ms=210000)
+    song2 = Cancion(id="2", track_name="Song B", track_id="2", track_popularity=85, track_duration_ms=220000)
+    song3 = Cancion(id="3", track_name="Song C", track_id="3", track_popularity=75, track_duration_ms=200000)
+    song4 = Cancion(id="4", track_name="Song D", track_id="4", track_popularity=75, track_duration_ms=200000)
+    song5 = Cancion(id="5", track_name="Song E", track_id="5", track_popularity=75, track_duration_ms=200000)
+    song6 = Cancion(id="6",track_name="Song F", track_id="6", track_popularity=75, track_duration_ms=200000)
 
 
     # Encolar canciones

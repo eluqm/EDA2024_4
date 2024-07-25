@@ -1,10 +1,12 @@
 import random
 from .LinkedList import LinkedList
+
 class Node:
     def __init__(self, data, position=None):
         self.data = data
         self.next = None
-        self.position = position  # Añadido para mantener la posición del nodo
+        self.prev = None
+        self.position = position 
 
 class Queue:
     def __init__(self):
@@ -22,6 +24,7 @@ class Queue:
             self.front = self.rear = new_node
         else:
             self.rear.next = new_node
+            new_node.prev = self.rear
             self.rear = new_node
         self.size += 1
         if self.size == 1:
@@ -34,6 +37,8 @@ class Queue:
         self.front = self.front.next
         if self.front is None:
             self.rear = None
+        else:
+            self.front.prev = None
         self.size -= 1
         if self.current == self.front:
             self.current = self.front
@@ -41,22 +46,20 @@ class Queue:
 
     def remove(self, item):
         current = self.front
-        previous = None
-
         while current:
             if current.data == item:
-                if previous:
-                    previous.next = current.next
-                else:
+                if current.prev:
+                    current.prev.next = current.next
+                if current.next:
+                    current.next.prev = current.prev
+                if current == self.front:
                     self.front = current.next
-                if not current.next:
-                    self.rear = previous
+                if current == self.rear:
+                    self.rear = current.prev
                 self.size -= 1
                 self._update_positions()  # Actualizamos las posiciones después de la eliminación
                 return
-            previous = current
             current = current.next
-        
         raise ValueError("Item not found in queue")
 
     def peek(self):
@@ -90,12 +93,9 @@ class Queue:
         return self.current.data
 
     def prev_song(self):
-        if self.current is None or self.current == self.front:
+        if self.current is None or self.current.prev is None:
             raise IndexError("No previous song")
-        current = self.front
-        while current.next != self.current:
-            current = current.next
-        self.current = current
+        self.current = self.current.prev
         return self.current.data
 
     def clear(self):
@@ -173,7 +173,7 @@ class Queue:
         self.put(posicion_actual, data_nueva)
         self._update_positions()
 
-    def random(self):
+    def randomize(self):
         if self.is_empty():
             return
 
