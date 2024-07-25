@@ -227,52 +227,78 @@
       let draggedItem = null;
   
       songList.addEventListener('dragstart', (event) => {
-          // Ensure the dragged item is the <li> element
-          draggedItem = event.target.closest('.song-item');
-          draggedItem.style.opacity = 0.4;
+        // Ensure the dragged item is the <li> element
+        draggedItem = event.target.closest('.song-item');
+        draggedItem.style.opacity = 0.4;
       });
   
       songList.addEventListener('dragend', (event) => {
-          if (draggedItem) {
-              draggedItem.style.opacity = '';
-          }
+        if (draggedItem) {
+            draggedItem.style.opacity = '';
+        }
       });
   
       songList.addEventListener('dragover', (event) => {
-          event.preventDefault();
+        event.preventDefault();
       });
   
       songList.addEventListener('dragenter', (event) => {
-          const targetItem = event.target.closest('.song-item');
-          if (targetItem && targetItem !== draggedItem) {
-              targetItem.style.border = '1px solid #aaa';
-          }
+        const targetItem = event.target.closest('.song-item');
+        if (targetItem && targetItem !== draggedItem) {
+            targetItem.style.border = '1px solid #aaa';
+        }
       });
   
       songList.addEventListener('dragleave', (event) => {
-          const targetItem = event.target.closest('.song-item');
-          if (targetItem && targetItem !== draggedItem) {
-              targetItem.style.border = '';
-          }
+        const targetItem = event.target.closest('.song-item');
+        if (targetItem && targetItem !== draggedItem) {
+            targetItem.style.border = '';
+        }
       });
   
       songList.addEventListener('drop', (event) => {
-          event.preventDefault();
-          const targetItem = event.target.closest('.song-item');
-          if (targetItem && targetItem !== draggedItem) {
-              targetItem.style.border = '';
-              const items = Array.from(songList.children);
-              const draggedIndex = items.indexOf(draggedItem);
-              const targetIndex = items.indexOf(targetItem);
-  
-              if (draggedIndex < targetIndex) {
-                  songList.insertBefore(draggedItem, targetItem.nextSibling);
-              } else {
-                  songList.insertBefore(draggedItem, targetItem);
-              }
-          }
+        event.preventDefault();
+        const targetItem = event.target.closest('.song-item');
+        if (targetItem && targetItem !== draggedItem) {
+            targetItem.style.border = '';
+            const items = Array.from(songList.children);
+            const draggedIndex = items.indexOf(draggedItem);
+            const targetIndex = items.indexOf(targetItem);
+            if (draggedIndex < targetIndex) {
+                songList.insertBefore(draggedItem, targetItem.nextSibling);
+            } else {
+                songList.insertBefore(draggedItem, targetItem);
+            }
+
+            // Send AJAX request to update the backend
+            updatePosition(draggedIndex, targetIndex);
+        }
+      });
+
+      function updatePosition(actualPosition, newPosition) {
+        //const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        fetch("{% url 'cambiarPosicion' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': window.csrfToken
+            },
+            body: new URLSearchParams({
+                'actual_position': actualPosition,
+                'new_position': newPosition
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log('Position updated successfully');
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+      }
     });
-});
 
   
   </script>
