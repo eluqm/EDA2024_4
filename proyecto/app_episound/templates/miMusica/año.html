@@ -51,8 +51,10 @@
   </div>
 
   <div id="emergente" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-8 rounded-md max-w-4xl w-full">
-    <div id="columnchart_values" style="width: 200px; height: 200px;"></div>
+    <div class="bg-white p-8 rounded-md max-w-4xl w-full max-h-4xl h-full">
+      
+      
+
       <button id="cerrarVentana" class="bg-red-500 text-white px-4 py-2 rounded-md">
         Cerrar
       </button>
@@ -99,7 +101,6 @@
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
         
-        //Aquí se representa el nombre de columna, el dato y el color
         var data = google.visualization.arrayToDataTable([ 
                     [ "Element", "Euros", { role : "style"} ], 
                     [ "2014", 12820756, "pink" ], 
