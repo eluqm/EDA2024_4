@@ -1,4 +1,4 @@
-
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -176,6 +176,23 @@ def play_song(request):
     except IndexError:
 
         return HttpResponseBadRequest("No hay canción actual para reproducir.")
+
+
+def cambiarPosicion(request):
+    if request.method == 'POST':
+        try:
+            actual_position = int(request.POST.get('actual_position'))
+            new_position = int(request.POST.get('new_position'))
+            colaReproducción.change_position(actual_position, new_position)
+            context = {
+                'canciones': colaReproducción,
+                'current_song': colaReproducción.peek()
+            }
+            return JsonResponse({'status': 'success', 'context': context})
+        except (ValueError, IndexError) as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
 
 def TimeDurationBtree(request):
     context = {
