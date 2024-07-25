@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="flex items-center space-x-4">
-            <span class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
+            <span id="duration-{{ forloop.counter }}" class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
             <span class="font-bold text-white">{{ cancion.id |add:1 }}</span>
           </div>
         </div>
@@ -37,4 +37,34 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Formatear la duración de la canción actual
+    const currentDurationElement = document.getElementById('info');
+    if (currentDurationElement) {
+      formatDuration(currentDurationElement);
+    }
+
+    // Formatear la duración de todas las canciones en la lista
+    {% for cancion in canciones %}
+      const durationElement{{ forloop.counter }} = document.getElementById('duration-{{ forloop.counter }}');
+      if (durationElement{{ forloop.counter }}) {
+        formatDuration(durationElement{{ forloop.counter }});
+      }
+    {% endfor %}
+  
+  });
+  
+  function formatDuration(element) {
+    const ms = parseInt(element.textContent.match(/\d+/)[0], 10);
+
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+
+    const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+    element.textContent = `${formattedDuration}`;
+  }
+</script>
 {% endblock content %}
