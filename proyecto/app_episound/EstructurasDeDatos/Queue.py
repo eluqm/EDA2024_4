@@ -190,7 +190,7 @@ class Queue:
             i+=1
 
 
-    def randomize(self):
+    def random(self):
         if self.is_empty():
             return
 
