@@ -88,10 +88,10 @@ class LinkedList:
             self.size += 1
 
     def to_list(self):
-        result = LinkedList()
+        result = []
         current = self.head
         while current is not None:
-            result.add(current.data)
+            result.append(current.data)
             current = current.next
         return result
     
@@ -123,17 +123,3 @@ class LinkedList:
                 return current.data
             current = current.next
         return None
-    
-    def extend(self, other):
-        if not isinstance(other, LinkedList):
-            raise TypeError("Extend method only accepts another LinkedList")
-        if other.head is None:
-            return
-        if self.head is None:
-            self.head = other.head
-        else:
-            current = self.head
-            while current.next is not None:
-                current = current.next
-            current.next = other.head
-        self.size += other.size
