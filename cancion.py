@@ -1,6 +1,6 @@
 class Cancion:
     def __init__(self, id=None, artist_name=None, track_year="" ,track_name=None, track_id = "", track_popularity=0 , track_duration_ms=0):
-        self.id = id
+        self.id = int(id)
         self.artist_name = artist_name
         self.track_name = track_name
         self.track_year = track_year 
