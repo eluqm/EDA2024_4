@@ -54,14 +54,15 @@ def guardar_id(request):
         cancion_id = request.POST.get('cancion_id')
         try:
             cancion_id = int(cancion_id)
-            cancion_select = global_canciones.get(cancion_id)
+            cancion_select = global_canciones.get_by_id(cancion_id)
+            print(cancion_select)
             if not misCanciones.contains(cancion_select):
                 misCanciones.add(cancion_select)
                 colaReproducción.enqueue(cancion_select)
                 print(f"ID de la canción recibida: {cancion_id}")
                 print(f"Detalles de la canción seleccionada: {cancion_select}")
             else:
-                print("La canción ya está en la lista.")
+                print("La canción ya está en la lista o no se encontró.")
                 
         except ValueError as e:
             print(f"Error: {e}")
