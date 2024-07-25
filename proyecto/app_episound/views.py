@@ -93,7 +93,7 @@ def eliminar_id(request):
         cancion_id = request.POST.get('cancion_id')
         try:
             cancion_id = int(cancion_id)
-            cancion_select = global_canciones.get(cancion_id)
+            cancion_select = global_canciones.get_by_id(cancion_id)
             
             if misCanciones.contains(cancion_select):
                 misCanciones.remove(cancion_select)  # Elimina de la lista de canciones
