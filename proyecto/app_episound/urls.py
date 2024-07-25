@@ -25,7 +25,6 @@ urlpatterns = [
     path('miMusica/Popularidad/songs_ascend_avlPopularidad/', views.songs_ascend_avlPopularidad, name="songs_ascending_AvlPopularidad"),
     path('miMusica/Popularidad/songs_descending_avlPopularidad/', views.songs_descend_avlPopularidad, name="songs_descending_AvlPopularidad"),
     
-    
     path('cambiarPosicion/', cambiarPosicion, name='cambiarPosicion'),
     path('random/', views.random, name='random'),
 

@@ -42,21 +42,30 @@
         <div class="max-w-3xl w-full overflow-y-auto space-y-4 mx-40 pr-4 pb-4 flex flex-col" style="height: calc(4 * 6rem + 4 * 1rem);">
           <ul class="song-list space-y-4" id="songList">
             {% for cancion in canciones %}
-            <li class="song-item flex flex-row items-center justify-between border-2 border-white p-4 bg-black text-white" draggable="true">
-              <div class="flex items-center space-x-4">
-                <button class="text-black bg-white w-9 h-9"> = </button>
-                <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
-                  🎵
+              <li 
+                id="song-{{ forloop.counter }}" 
+                class="song-item flex flex-row items-center justify-between border-2 border-white p-4 bg-black text-white" 
+                draggable="true"
+              >
+                <div class="flex items-center space-x-4">
+                  <button 
+                    class="text-black bg-white w-9 h-9"
+                    onclick="promptMove('{{ forloop.counter }}')"
+                  > 
+                    = 
+                  </button>
+                  <div class="min-w-12 min-h-12 w-12 h-12 bg-white flex items-center justify-center text-white text-xl">
+                    🎵
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-bold text-white">{{ cancion.track_name }}</span>
+                    <span class="text-gray-400">{{ cancion.artist_name }}</span>
+                  </div>
                 </div>
-                <div class="flex flex-col">
-                  <span class="font-bold text-white">{{ cancion.track_name }}</span>
-                  <span class="text-gray-400">{{ cancion.artist_name }}</span>
+                <div class="flex items-center space-x-4">
+                  <span id="duration-{{ forloop.counter }}" class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
                 </div>
-              </div>
-              <div class="flex items-center space-x-4">
-                <span id="duration-{{ forloop.counter }}" class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
-              </div>
-            </li>
+              </li>
             {% endfor %}
           </ul>
         </div>
@@ -304,7 +313,56 @@
         .catch(error => console.error('Error:', error));
       }
     });
+  </script>
 
-  
+  Copiar código
+  <script>
+    function promptMove(cancionId) {
+      const newPosition = prompt("Ingresa el ID de la nueva posición:");
+      if (newPosition !== null) {
+        // Convertir la posición a entero y restar 1
+        const newPositionZeroBased = parseInt(newPosition, 10) - 1;
+        
+        // Enviar la solicitud POST al servidor
+        fetch('/cambiarPosicion/', {  // Asegúrate de que esta URL coincida con tu configuración de URL en Django
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')  // Agrega el token CSRF
+          },
+          body: JSON.stringify({
+            cancionId: cancionId - 1,
+            newPosition: newPositionZeroBased
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Posición cambiada exitosamente.');
+          } else {
+            alert('Error al cambiar la posición.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+    }
+
+    // Función para obtener el token CSRF del cookie
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
   </script>
 {% endblock %}

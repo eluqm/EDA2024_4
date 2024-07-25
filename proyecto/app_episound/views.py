@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import JsonResponse
+import json
 from .in_memory_data import datos
 from .EstructurasDeDatos.HashMap import HashMap
 from .EstructurasDeDatos.LinkedList import LinkedList
@@ -177,21 +178,20 @@ def play_song(request):
 
         return HttpResponseBadRequest("No hay canción actual para reproducir.")
 
-
 def cambiarPosicion(request):
     if request.method == 'POST':
         try:
-            actual_position = int(request.POST.get('actual_position'))
-            new_position = int(request.POST.get('new_position'))
-            colaReproducción.change_position(actual_position, new_position)
-            context = {
-                'canciones': colaReproducción,
-                'current_song': colaReproducción.peek()
-            }
-            return JsonResponse({'status': 'success', 'context': context})
-        except (ValueError, IndexError) as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+            data = json.loads(request.body)
+            cancion_id = int(data.get('cancionId'))
+            new_position = int(data.get('newPosition'))
+
+            colaReproducción.change_position(cancion_id, new_position)
+        except Exception as e:
+            # En caso de error, devuelve una respuesta JSON con un mensaje de error
+            return JsonResponse({'success': False, 'error': str(e)})
+    else:
+        return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)
+            
 
 
 def TimeDurationBtree(request):
