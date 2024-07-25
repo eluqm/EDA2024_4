@@ -113,3 +113,13 @@ class LinkedList:
         for _ in range(index):
             current = current.next
         return current
+    
+    def get_by_id(self, id):
+        current = self.head
+        while current:
+            # Print out IDs to check what is being compared
+            print(f"Comparando ID: {current.data.id} con ID buscado: {id}")
+            if current.data.id == id:
+                return current.data
+            current = current.next
+        return None
