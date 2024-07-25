@@ -184,15 +184,12 @@ def cambiarPosicion(request):
             data = json.loads(request.body)
             cancion_id = int(data.get('cancionId'))
             new_position = int(data.get('newPosition'))
-
             colaReproducción.change_position(cancion_id, new_position)
+            
         except Exception as e:
             # En caso de error, devuelve una respuesta JSON con un mensaje de error
             return JsonResponse({'success': False, 'error': str(e)})
-    else:
-        return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)
             
-
 
 def TimeDurationBtree(request):
     context = {
