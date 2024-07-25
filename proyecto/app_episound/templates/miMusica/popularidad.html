@@ -52,8 +52,8 @@
 
   <div id="emergente" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-8 rounded-md max-w-4xl w-full">
-      <h2 class="text-xl font-bold mb-4">Título del Modal</h2>
-      <p class="mb-4">Contenido del modal va aquí...</p>
+      <!-- GRAFICA-->
+      <div id="columnchart_values"></div>
       <button id="cerrarVentana" class="bg-red-500 text-white px-4 py-2 rounded-md">
         Cerrar
       </button>
@@ -90,4 +90,57 @@
     });
 
   </script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="js/myCharts.js"></script>
+
+  <script>
+    google.charts.load("current", { packages: ['corechart'] });
+    
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ["Año", "Euros", { role: "style" }],
+            ["2014", 12820756, "pink"],
+            ["2015", 13171807, "silver"],
+            ["2016", 13259769, "gold"],
+            ["2017", 14063444, "blue"],
+            ["2018", 14945692, "green"]
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([
+            0, 1, {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            }
+        ]);
+
+        var options = {
+            title: "TIEMPO EN ORDENAR POR POPULARIDAD.",
+            width: 840,
+            height: 650,
+            hAxis: { title: 'Año' },
+            vAxis: { title: 'NONE' },
+            legend: { position: "none" },
+            pointSize: 5, // Tamaño de los puntos en el gráfico
+            lineWidth: 3, // Grosor de la línea
+            chartArea: {
+              left: 10,   // Ajusta el padding izquierdo
+              top: 20,    // Ajusta el padding superior
+              width: '100%', // Ancho del área de dibujo
+              height: '85%' // Alto del área de dibujo
+          }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+    }
+    
+    function getValueAt(column, dataTable, row) {
+        return dataTable.getFormattedValue(row, column);
+    }
+</script>
 {% endblock content %}
