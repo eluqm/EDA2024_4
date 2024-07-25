@@ -11,9 +11,9 @@ from .EstructurasDeDatos.Trie import Trie
 from .EstructurasDeDatos.B_tree import BTree
 from .EstructurasDeDatos.AVLTree import AVLTree
 
+global_canciones = datos()
 misCanciones = LinkedList()
 colaReproducción = Queue()
-global_canciones = datos()
 songsBtree = BTree(3)
 songsAVlAño = AVLTree()
 songAVlPopularidad = AVLTree()
