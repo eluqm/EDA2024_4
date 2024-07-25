@@ -1,6 +1,4 @@
 from EstructurasDeDatos.B_tree import BTree
-from EstructurasDeDatos.LinkedList import LinkedList
-from EstructurasDeDatos.HashMap import HashMap
 from cancion import Cancion
 
 def main():
