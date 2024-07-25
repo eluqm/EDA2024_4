@@ -32,3 +32,9 @@ class Array:
         """Función para poder iterar."""
         for i in range(self._size):
             yield self._data[i]
+
+    def get_by_id(self, id):
+        for item in self._data:
+            if item is not None and hasattr(item, 'id') and item.id == id:
+                return item
+        return None
