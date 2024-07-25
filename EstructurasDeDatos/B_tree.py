@@ -96,8 +96,7 @@ class BTree:
 
     def ascending(self):
         songs = self.in_orden()
-        for song in songs:
-            print(song)
+        return songs
 
     def in_orden_reverse(self, node=None):
         if node is None:
@@ -116,5 +115,7 @@ class BTree:
         
     def descending(self):
         songs = self.in_orden_reverse()
-        for song in songs:
-            print(song)
+        return songs
+    
+    def clear(self):
+        self.root = BTreeNode(self.t, True)  # Reinicializa el árbol con una nueva raíz vacía
