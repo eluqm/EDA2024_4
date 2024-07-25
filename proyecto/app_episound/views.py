@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import JsonResponse
-from .in_memory_data import canciones, current_song, datos
+from .in_memory_data import datos
 from .EstructurasDeDatos.HashMap import HashMap
 from .EstructurasDeDatos.LinkedList import LinkedList
 from .EstructurasDeDatos.Queue import Queue
