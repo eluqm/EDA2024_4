@@ -19,7 +19,7 @@ songsAVlAño = AVLTree()
 songAVlPopularidad = AVLTree()
 
 trieArbol = Trie()
-for cancion in canciones:
+for cancion in global_canciones:
     trieArbol.insert(cancion.get_track_name(), cancion) 
 
 def index(request):
@@ -74,7 +74,7 @@ def guardar_idBusc(request):
         cancion_id = request.POST.get('cancion_id')
         try:
             cancion_id = int(cancion_id)
-            cancion_select = global_canciones.get(cancion_id)
+            cancion_select = global_canciones.get_by_id(cancion_id)
             if not misCanciones.contains(cancion_select):
                 misCanciones.add(cancion_select)
                 colaReproducción.enqueue(cancion_select)
