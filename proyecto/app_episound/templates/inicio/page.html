@@ -24,7 +24,7 @@
           </div>
           <div class="flex items-center space-x-4">
             <span id="duration-{{ forloop.counter }}" class="font-bold text-white">{{ cancion.track_duration_ms }}</span>
-            <span class="font-bold text-white">{{ cancion.id |add:1 }}</span>
+            <span class="font-bold text-white">Id: {{ cancion.id |add:1 }}</span>
           </div>
         </div>
         <button type="submit" class="flex m-5 text-4xl text-center hover:text-primary">
