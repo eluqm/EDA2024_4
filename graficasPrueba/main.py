@@ -4,7 +4,7 @@ import numpy as np
 
 def main():
     # Lista de números de elementos para probar
-    numeros_de_elementos = np.arange(1, 60001, 100)  # Por ejemplo, 100, 200, ..., 1000
+    numeros_de_elementos = np.arange(1, 9001, 100)  # Por ejemplo, 100, 200, ..., 1000
     tiempos = []
 
     for num_elementos in numeros_de_elementos:
