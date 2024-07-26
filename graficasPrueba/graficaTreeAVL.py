@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def main():
-    numeros_de_elementos = np.arange(1, 40001, 800)  
+    numeros_de_elementos = np.arange(1, 40001, 600)  
     tiempos = []
 
     for num_elementos in numeros_de_elementos:
