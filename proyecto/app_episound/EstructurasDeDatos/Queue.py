@@ -167,7 +167,6 @@ class Queue:
             posicion_nueva < 0 or posicion_nueva >= self.size):
             raise IndexError("Posición fuera de los límites")
         
-        current_song = self.current.data
         factCambio = posicion_actual - posicion_nueva
         data_actual = self.get(posicion_actual)
         if factCambio < 0:
@@ -182,13 +181,6 @@ class Queue:
             self.put(posicion_nueva, data_actual)
 
         self._update_positions()
-
-        current = self.front
-        while current:
-            if current.data == current_song:
-                self.current = current
-                break
-            current = current.next
 
     def random(self):
         if self.is_empty():
