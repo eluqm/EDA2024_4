@@ -162,33 +162,33 @@ class Queue:
     def change_position(self, posicion_actual, posicion_nueva):
         if posicion_actual == posicion_nueva:
             return
-        print('Posiciones');
-        print(posicion_actual);
-        print(posicion_nueva);
-        print("Contenido de la cola:")
-        i = 0
-        for song in self:
-            print(i);
-            print(song)
-            i+=1
 
         if (posicion_actual < 0 or posicion_actual >= self.size or
             posicion_nueva < 0 or posicion_nueva >= self.size):
             raise IndexError("Posición fuera de los límites")
-
+        
+        current_song = self.current.data
+        factCambio = posicion_actual - posicion_nueva
         data_actual = self.get(posicion_actual)
-        data_nueva = self.get(posicion_nueva)
-        self.put(posicion_nueva, data_actual)
-        self.put(posicion_actual, data_nueva)
+        if factCambio < 0:
+            for i in range(abs(factCambio)):
+                data_nueva = self.get(posicion_actual + 1 + i)
+                self.put(posicion_actual + i, data_nueva)
+            self.put(posicion_nueva, data_actual)
+        else:
+            for i in range(abs(factCambio)):
+                data_nueva = self.get(posicion_actual - 1 - i)
+                self.put(posicion_actual - i, data_nueva)
+            self.put(posicion_nueva, data_actual)
+
         self._update_positions()
 
-        print("Contenido de la cola luego :")
-        i = 0
-        for song in self:
-            print(i);
-            print(song)
-            i+=1
-
+        current = self.front
+        while current:
+            if current.data == current_song:
+                self.current = current
+                break
+            current = current.next
 
     def random(self):
         if self.is_empty():

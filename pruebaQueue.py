@@ -98,17 +98,26 @@ def main():
 
     print(queue.get(0))
     
-    queue.change_position(queue.find_position(song3), 0)
+    
 
-    print('\n---------PRUEBAS DE CAMBIO DE POSICIÓN---------')
+    print('\n---------  PRUEBAS DE CAMBIO DE POSICIÓN ANTES DEL CAMBIO  ---------')
     for song in queue:
-        if(song == queue.get_current()):
-            print('Sonando')
-            print(song);
-            print('----')
-            next
+        if (song == queue.get_current()):
+            print("Sonando")
+            print(song)
         else:
             print(song)
+
+    queue.change_position(queue.find_position(song3), 4)
+
+    print('\n---------  PRUEBAS DE CAMBIO DE POSICIÓN ANTES DEL CAMBIO  ---------')
+    for song in queue:
+        if (song == queue.get_current()):
+            print("Sonando")
+            print(song)
+        else:
+            print(song)
+
 
     queue.random()
 
@@ -125,3 +134,7 @@ def main():
 
 if __name__ == "__main__":
     main()  
+
+
+
+    
