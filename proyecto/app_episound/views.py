@@ -1,17 +1,16 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
 import json
 from .in_memory_data import datos
-from .EstructurasDeDatos.HashMap import HashMap
 from .EstructurasDeDatos.LinkedList import LinkedList
 from .EstructurasDeDatos.Queue import Queue
 from .EstructurasDeDatos.Trie import Trie
 from .EstructurasDeDatos.B_tree import BTree
 from .EstructurasDeDatos.AVLTree import AVLTree
 
+#INICIALIZACIÓN DE ESTRUCTURAS
 global_canciones = datos()
 misCanciones = LinkedList()
 colaReproducción = Queue()
@@ -19,19 +18,27 @@ songsBtree = BTree(3)
 songsAVlAño = AVLTree()
 songAVlPopularidad = AVLTree()
 
+#Inicialización del Buscador
 trieArbol = Trie()
 for cancion in global_canciones:
     trieArbol.insert(cancion.get_track_name(), cancion) 
 
+
+#########################################################################
+################## INICIALIZACIÓN DE TEMPLATES/PÁGINAS ##################
+#########################################################################
+
+#PÁGINA HOME
 def index(request):
     return render(request, "inicio/page.html") 
 
+#PÁGINA MIMUSICA
 def miMusica(request):
     context = {
         'canciones': misCanciones
     }
     return render(request, "miMusica/page.html", context)
-
+#PÁGINA BUSCAR
 def buscar(request):
     query = request.GET.get('query', '')  
     if query:
@@ -44,12 +51,35 @@ def buscar(request):
     }
     return render(request, "buscador/page.html", context)
 
+#PÁGINA COLA DE REPORDUCCIÓN
+def reproducir(request):
+    # Verifica si colaReproducción está definida y tiene canciones
+    if not colaReproducción or colaReproducción.is_empty():
+        context = {
+            'canciones': [],
+            'current_song': None
+        }
+    else:
+        context = {
+            'canciones': colaReproducción,
+            'current_song': colaReproducción.peek()  # Mostrar la canción actual
+        }
+    
+    return render(request, "reproduccion/page.html", context)
+
+#MÉTODO PARA ACTUALIZAR HOME DESPUES DE UNA AGREGACIÓN
 def mostrar_cancion(request):
     context = {
         'canciones': global_canciones
     }
     return render(request, "inicio/page.html", context)
 
+
+#######################################################################################
+################## MÉTODOS PARA TRATAR LAS CANCIONES QUE SE MUESTRAN ################## 
+#######################################################################################
+
+#FUNCIÓN DE AGREGAR UNA CANCION DESDE EL HOME
 def guardar_id(request):
     if request.method == 'POST':
         cancion_id = request.POST.get('cancion_id')
@@ -70,6 +100,7 @@ def guardar_id(request):
 
     return redirect('index')
 
+#FUNCIÓN DE AGREGAR UNA CANCION DESDE EL BUSCADOR 
 def guardar_idBusc(request):
     if request.method == 'POST':
         cancion_id = request.POST.get('cancion_id')
@@ -89,6 +120,7 @@ def guardar_idBusc(request):
 
     return redirect('buscar')
 
+#FUNCIÓN DE ELIMINAR UNA CANCION DESDE MILISTA DE CANCIONES
 def eliminar_id(request):
     if request.method == 'POST':
         cancion_id = request.POST.get('cancion_id')
@@ -114,21 +146,12 @@ def eliminar_id(request):
 
     return render(request, "miMusica/page.html", context)
 
-def reproducir(request):
-    # Verifica si colaReproducción está definida y tiene canciones
-    if not colaReproducción or colaReproducción.is_empty():
-        context = {
-            'canciones': [],
-            'current_song': None
-        }
-    else:
-        context = {
-            'canciones': colaReproducción,
-            'current_song': colaReproducción.peek()  # Mostrar la canción actual
-        }
-    
-    return render(request, "reproduccion/page.html", context)
 
+######################################################################################
+################## MÉTODOS PARA LA FUNCIONALIDAD EN LA REPRODUCCIÓN ################## 
+######################################################################################
+
+#REPRODUCE LA SIGUIENTE CANCIÓN DE LA COLA
 def next_song(request):
     try:
         current_song = colaReproducción.next_song()
@@ -148,6 +171,7 @@ def next_song(request):
         }
         return render(request, "reproduccion/page.html", context)
 
+#REPRODUCE LA ANTERIOR CANCIÓN DE LA COLA
 def prev_song(request):
     try:
         current_song = colaReproducción.prev_song()
@@ -167,6 +191,7 @@ def prev_song(request):
         }
         return render(request, "reproduccion/page.html", context)
 
+#EJECUTA LA CANCIÓN EN EL NAVEGADOR PARA REPORDUCIRLA
 def play_song(request):
     try:
         song_actual = colaReproducción.get_current()
@@ -176,8 +201,14 @@ def play_song(request):
         return redirect(spotify_url)
     except IndexError:
 
-        return HttpResponseBadRequest("No hay canción actual para reproducir.")
+        return HttpResponseBadRequest("No hay canción actual para reproducir.") 
+           
 
+####################################################################
+################## MÉTODOS DE MUESTREO EN LA COLA ##################
+####################################################################
+
+#CAMBIAR EL ORDEN DE DOS POSICIONES
 def cambiarPosicion(request):
     if request.method == 'POST':
         try:
@@ -189,7 +220,93 @@ def cambiarPosicion(request):
         except Exception as e:
             # En caso de error, devuelve una respuesta JSON con un mensaje de error
             return JsonResponse({'success': False, 'error': str(e)})
-            
+
+#REPRODUCCIÓN ALEATORIA DE CANCIONES
+def random(request):
+    colaReproducción.random()
+    context = {
+        'canciones': colaReproducción,
+        'current_song': colaReproducción.peek()  # Mostrar la canción actual
+    }
+    return render(request, "reproduccion/page.html", context)
+
+
+################################################################################
+################## MÉTODOS DE ORDENAMIENTO POR DIFERENTE TIPO ##################
+################################################################################
+
+#ASCENDENTE POR TIEMPO
+def songs_ascend_btree(request):
+    songsBtree.clear()
+    for cancion in misCanciones:
+        songsBtree.insert(cancion.track_duration_ms, cancion)
+
+    canciones_ordenadas = songsBtree.ascending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/duracion.html", context)
+
+#DESCENDENTE POR TIEMPO
+def songs_descend_btree(request):
+    songsBtree.clear()
+    for cancion in misCanciones:
+        songsBtree.insert(cancion.track_duration_ms, cancion)
+
+    canciones_ordenadas = songsBtree.descending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/duracion.html", context)
+
+#ASCENDENTE POR AÑOS Y EN ORDEN ALFABETICO POR AÑO
+def songs_ascend_avlAños(request):
+    songsAVlAño.clear()
+    for cancion in misCanciones:
+        songsAVlAño.insert(cancion.track_year, cancion)
+    canciones_ordenadas = songsAVlAño.ascending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/año.html", context)
+
+#DESCENDENTE POR AÑOS Y EN ORDEN ALFABETICO POR AÑO
+def songs_descend_avlAños(request):
+    songsAVlAño.clear()
+    for cancion in misCanciones:
+        songsAVlAño.insert(cancion.track_year, cancion)
+    canciones_ordenadas = songsAVlAño.descending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/año.html", context)
+
+#ASCENDENTE POR POPULARIDAD
+def songs_ascend_avlPopularidad(request):
+    songAVlPopularidad.clear()
+    for cancion in misCanciones:
+        songAVlPopularidad.insert(cancion.track_popularity, cancion)
+    canciones_ordenadas = songAVlPopularidad.ascending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/popularidad.html", context)
+
+#DESCENDENTE POR POPULARIDAD
+def songs_descend_avlPopularidad(request):
+    songAVlPopularidad.clear()
+    for cancion in misCanciones:
+        songAVlPopularidad.insert(cancion.track_popularity, cancion)
+    canciones_ordenadas = songAVlPopularidad.descending()
+    context = {
+        'canciones': canciones_ordenadas
+    }
+    return render(request, "miMusica/popularidad.html", context)
+
+
+###########################################################################################
+################## MÉTODOS ADICIONALES PARA ACTUALIZAR INFO DE LA PÁGINA ################## 
+###########################################################################################
 
 def TimeDurationBtree(request):
     context = {
@@ -206,107 +323,5 @@ def TimeDurationAvl(request):
 def TimePopularidadAvl(request):
     context = {
         'canciones': colaReproducción
-    }
-    return render(request, "miMusica/popularidad.html", context)
-
-#Esto ya es el ordenamiento
-
-def songs_ascend_btree(request):
-    songsBtree.clear()
-
-    # Itera sobre las canciones en misCanciones e inserta en el BTree
-    for cancion in misCanciones:
-        songsBtree.insert(cancion.track_duration_ms, cancion)
-
-    # Obtén las canciones en orden ascendente
-    canciones_ordenadas = songsBtree.ascending()
-
-    context = {
-        'canciones': canciones_ordenadas
-    }
-
-    return render(request, "miMusica/duracion.html", context)
-
-def songs_descend_btree(request):
-    songsBtree.clear()
-
-    # Itera sobre las canciones en misCanciones e inserta en el BTree
-    for cancion in misCanciones:
-        songsBtree.insert(cancion.track_duration_ms, cancion)
-
-    # Obtén las canciones en orden ascendente
-    canciones_ordenadas = songsBtree.descending()
-
-    context = {
-        'canciones': canciones_ordenadas
-    }
-
-    return render(request, "miMusica/duracion.html", context)
-
-def random(request):
-    colaReproducción.random()
-    context = {
-        'canciones': colaReproducción,
-        'current_song': colaReproducción.peek()  # Mostrar la canción actual
-    }
-    return render(request, "reproduccion/page.html", context)
-
-def songs_ascend_btree(request):
-    songsBtree.clear()
-    for cancion in misCanciones:
-        songsBtree.insert(cancion.track_duration_ms, cancion)
-    canciones_ordenadas = songsBtree.ascending()
-    context = {
-        'canciones': canciones_ordenadas
-    }
-    return render(request, "miMusica/duracion.html", context)
-
-def songs_descend_btree(request):
-    songsBtree.clear()
-    for cancion in misCanciones:
-        songsBtree.insert(cancion.track_duration_ms, cancion)
-    canciones_ordenadas = songsBtree.descending()
-    context = {
-        'canciones': canciones_ordenadas
-    }
-    return render(request, "miMusica/duracion.html", context)
-
-def songs_ascend_avlAños(request):
-    songsAVlAño.clear()
-    for cancion in misCanciones:
-        songsAVlAño.insert(cancion.track_year, cancion)
-    canciones_ordenadas = songsAVlAño.ascending()
-    context = {
-        'canciones': canciones_ordenadas
-    }
-    return render(request, "miMusica/año.html", context)
-
-def songs_descend_avlAños(request):
-    songsAVlAño.clear()
-    for cancion in misCanciones:
-        songsAVlAño.insert(cancion.track_year, cancion)
-    canciones_ordenadas = songsAVlAño.descending()
-    context = {
-        'canciones': canciones_ordenadas
-    }
-    return render(request, "miMusica/año.html", context)
-
-def songs_ascend_avlPopularidad(request):
-    songAVlPopularidad.clear()
-    for cancion in misCanciones:
-        songAVlPopularidad.insert(cancion.track_popularity, cancion)
-    canciones_ordenadas = songAVlPopularidad.ascending()
-    context = {
-        'canciones': canciones_ordenadas
-    }
-    return render(request, "miMusica/popularidad.html", context)
-
-def songs_descend_avlPopularidad(request):
-    songAVlPopularidad.clear()
-    for cancion in misCanciones:
-        songAVlPopularidad.insert(cancion.track_popularity, cancion)
-    canciones_ordenadas = songAVlPopularidad.descending()
-    context = {
-        'canciones': canciones_ordenadas
     }
     return render(request, "miMusica/popularidad.html", context)
